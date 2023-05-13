@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 AgentApi.md
 AuthenticationApi.md
 CoreTraceApi.md
