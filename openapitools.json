@@ -5,17 +5,16 @@
     "version": "6.6.0",
     "generators": {
       "v1.0": {
-        "generatorName": "typescript-fetch",
+        "generatorName": "typescript",
         "inputSpec": "https://app.corellium.com/api/openapi.json",
-        "output": "#{cwd}/gen",
+        "output": "#{cwd}/",
         "gitRepoId": "typescript-corellium-api-client",
         "gitUserId": "aimoda",
         "skipValidateSpec": true,
         "additionalProperties" : {
           "npmName": "@aimoda/corellium-api",
           "supportsES6": true,
-          "withInterfaces": true,
-          "prefixParameterInterfaces": true
+          "snapshot": false
         }
       }
     }
