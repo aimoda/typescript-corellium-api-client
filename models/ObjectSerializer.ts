@@ -41,6 +41,7 @@ export * from '../models/InstanceBootOptionsAdditionalTag';
 export * from '../models/InstanceConsoleEndpoint';
 export * from '../models/InstanceCreateOptions';
 export * from '../models/InstanceInput';
+export * from '../models/InstanceNetdumpState';
 export * from '../models/InstanceNetmonState';
 export * from '../models/InstanceReturn';
 export * from '../models/InstanceServices';
@@ -57,6 +58,7 @@ export * from '../models/KernelThread';
 export * from '../models/MediaPlayBody';
 export * from '../models/Model';
 export * from '../models/ModelSoftware';
+export * from '../models/NetdumpFilter';
 export * from '../models/PasswordChangeBody';
 export * from '../models/PasswordResetBody';
 export * from '../models/PatchInstanceOptions';
@@ -134,13 +136,14 @@ import { GpiosState } from '../models/GpiosState';
 import { GrantTrialRequestResponse } from '../models/GrantTrialRequestResponse';
 import { Hook    , HookPatchTypeEnum       } from '../models/Hook';
 import { Image   , ImageTypeEnum         } from '../models/Image';
-import { Instance                             } from '../models/Instance';
+import { Instance                              } from '../models/Instance';
 import { InstanceAgentState } from '../models/InstanceAgentState';
 import { InstanceBootOptions } from '../models/InstanceBootOptions';
 import { InstanceBootOptionsAdditionalTag } from '../models/InstanceBootOptionsAdditionalTag';
 import { InstanceConsoleEndpoint } from '../models/InstanceConsoleEndpoint';
 import { InstanceCreateOptions } from '../models/InstanceCreateOptions';
 import { InstanceInput } from '../models/InstanceInput';
+import { InstanceNetdumpState } from '../models/InstanceNetdumpState';
 import { InstanceNetmonState } from '../models/InstanceNetmonState';
 import { InstanceReturn   } from '../models/InstanceReturn';
 import { InstanceServices } from '../models/InstanceServices';
@@ -157,11 +160,12 @@ import { KernelThread } from '../models/KernelThread';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
+import { NetdumpFilter } from '../models/NetdumpFilter';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions , PatchInstanceOptionsStateEnum     } from '../models/PatchInstanceOptions';
 import { PeripheralsData } from '../models/PeripheralsData';
-import { Plan, PlanLicenseTypeEnum    } from '../models/Plan';
+import { Plan } from '../models/Plan';
 import { Project } from '../models/Project';
 import { ProjectKey , ProjectKeyKindEnum        } from '../models/ProjectKey';
 import { ProjectQuota } from '../models/ProjectQuota';
@@ -228,7 +232,6 @@ let enumsMap: Set<string> = new Set<string>([
     "InstanceBootOptionsAdditionalTag",
     "InstanceState",
     "PatchInstanceOptionsStateEnum",
-    "PlanLicenseTypeEnum",
     "ProjectKeyKindEnum",
     "RoleRoleEnum",
     "RotateBodyOrientationEnum",
@@ -278,6 +281,7 @@ let typeMap: {[index: string]: any} = {
     "InstanceConsoleEndpoint": InstanceConsoleEndpoint,
     "InstanceCreateOptions": InstanceCreateOptions,
     "InstanceInput": InstanceInput,
+    "InstanceNetdumpState": InstanceNetdumpState,
     "InstanceNetmonState": InstanceNetmonState,
     "InstanceReturn": InstanceReturn,
     "InstanceServices": InstanceServices,
@@ -293,6 +297,7 @@ let typeMap: {[index: string]: any} = {
     "MediaPlayBody": MediaPlayBody,
     "Model": Model,
     "ModelSoftware": ModelSoftware,
+    "NetdumpFilter": NetdumpFilter,
     "PasswordChangeBody": PasswordChangeBody,
     "PasswordResetBody": PasswordResetBody,
     "PatchInstanceOptions": PatchInstanceOptions,
