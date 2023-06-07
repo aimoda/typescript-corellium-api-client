@@ -28,6 +28,8 @@ Method | HTTP request | Description
 [**v1GetInstanceSnapshots**](InstancesApi.md#v1GetInstanceSnapshots) | **GET** /v1/instances/{instanceId}/snapshots | Get Instance Snapshots
 [**v1GetInstances**](InstancesApi.md#v1GetInstances) | **GET** /v1/instances | Get Instances
 [**v1InstancesInstanceIdMessagePost**](InstancesApi.md#v1InstancesInstanceIdMessagePost) | **POST** /v1/instances/{instanceId}/message | Receive a message on an iOS vm
+[**v1InstancesInstanceIdNetdumpPcapGet**](InstancesApi.md#v1InstancesInstanceIdNetdumpPcapGet) | **GET** /v1/instances/{instanceId}/netdump.pcap | Download a netdump pcap file
+[**v1InstancesInstanceIdNetworkMonitorPcapGet**](InstancesApi.md#v1InstancesInstanceIdNetworkMonitorPcapGet) | **GET** /v1/instances/{instanceId}/networkMonitor.pcap | Download a Network Monitor pcap file
 [**v1Kcrange**](InstancesApi.md#v1Kcrange) | **GET** /v1/instances/{instanceId}/btrace-kcrange | Get Kernel extension ranges
 [**v1ListThreads**](InstancesApi.md#v1ListThreads) | **GET** /v1/instances/{instanceId}/strace/thread-list | Get Running Threads (CoreTrace)
 [**v1MediaPlay**](InstancesApi.md#v1MediaPlay) | **POST** /v1/instances/{instanceId}/media/play | Start playing media
@@ -46,10 +48,12 @@ Method | HTTP request | Description
 [**v1StartCoreTrace**](InstancesApi.md#v1StartCoreTrace) | **POST** /v1/instances/{instanceId}/strace/enable | Start CoreTrace on an instance
 [**v1StartHyperTrace**](InstancesApi.md#v1StartHyperTrace) | **POST** /v1/instances/{instanceId}/btrace/enable | Start HyperTrace on an instance
 [**v1StartInstance**](InstancesApi.md#v1StartInstance) | **POST** /v1/instances/{instanceId}/start | Start an Instance
+[**v1StartNetdump**](InstancesApi.md#v1StartNetdump) | **POST** /v1/instances/{instanceId}/netdump/enable | Start Enhanced Network Monitor on an instance.
 [**v1StartNetworkMonitor**](InstancesApi.md#v1StartNetworkMonitor) | **POST** /v1/instances/{instanceId}/sslsplit/enable | Start Network Monitor on an instance.
 [**v1StopCoreTrace**](InstancesApi.md#v1StopCoreTrace) | **POST** /v1/instances/{instanceId}/strace/disable | Stop CoreTrace on an instance.
 [**v1StopHyperTrace**](InstancesApi.md#v1StopHyperTrace) | **POST** /v1/instances/{instanceId}/btrace/disable | Stop HyperTrace on an instance.
 [**v1StopInstance**](InstancesApi.md#v1StopInstance) | **POST** /v1/instances/{instanceId}/stop | Stop an Instance
+[**v1StopNetdump**](InstancesApi.md#v1StopNetdump) | **POST** /v1/instances/{instanceId}/netdump/disable | Stop Enhanced Network Monitor on an instance.
 [**v1StopNetworkMonitor**](InstancesApi.md#v1StopNetworkMonitor) | **POST** /v1/instances/{instanceId}/sslsplit/disable | Stop Network Monitor on an instance.
 [**v1UnpauseInstance**](InstancesApi.md#v1UnpauseInstance) | **POST** /v1/instances/{instanceId}/unpause | Unpause an Instance
 [**v1UpgradeInstance**](InstancesApi.md#v1UpgradeInstance) | **POST** /v1/instances/{instanceId}/upgrade | Upgrade iOS version
@@ -1443,6 +1447,116 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **v1InstancesInstanceIdNetdumpPcapGet**
+> HttpFile v1InstancesInstanceIdNetdumpPcapGet()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .InstancesApi(configuration);
+
+let body:.InstancesApiV1InstancesInstanceIdNetdumpPcapGetRequest = {
+  // string | Instance ID - uuid
+  instanceId: "instanceId_example",
+};
+
+apiInstance.v1InstancesInstanceIdNetdumpPcapGet(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
+
+
+### Return type
+
+**HttpFile**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/vnd.tcpdump.pcap, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | pcapng file |  -  |
+**400** | Bad Request |  -  |
+**403** | Forbidden |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1InstancesInstanceIdNetworkMonitorPcapGet**
+> HttpFile v1InstancesInstanceIdNetworkMonitorPcapGet()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .InstancesApi(configuration);
+
+let body:.InstancesApiV1InstancesInstanceIdNetworkMonitorPcapGetRequest = {
+  // string | Instance ID - uuid
+  instanceId: "instanceId_example",
+};
+
+apiInstance.v1InstancesInstanceIdNetworkMonitorPcapGet(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
+
+
+### Return type
+
+**HttpFile**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/vnd.tcpdump.pcap, application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | pcap file |  -  |
+**400** | Bad Request |  -  |
+**403** | Forbidden |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **v1Kcrange**
 > Array<Kcrange> v1Kcrange()
 
@@ -2521,6 +2635,7 @@ let body:.InstancesApiV1StartInstanceRequest = {
   // InstanceStartOptions | Start options (optional)
   instanceStartOptions: {
     paused: true,
+    sockcap: true,
   },
 };
 
@@ -2559,6 +2674,83 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **409** | Conflict |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1StartNetdump**
+> void v1StartNetdump()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .InstancesApi(configuration);
+
+let body:.InstancesApiV1StartNetdumpRequest = {
+  // string | Instance ID - uuid
+  instanceId: "instanceId_example",
+  // NetdumpFilter |  (optional)
+  netdumpFilter: {
+    portRanges: [
+      "portRanges_example",
+    ],
+    srcPorts: [
+      "srcPorts_example",
+    ],
+    dstPorts: [
+      "dstPorts_example",
+    ],
+    ports: [
+      "ports_example",
+    ],
+    protocols: [
+      "protocols_example",
+    ],
+    processes: [
+      "processes_example",
+    ],
+  },
+};
+
+apiInstance.v1StartNetdump(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **netdumpFilter** | **NetdumpFilter**|  |
+ **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
+
+
+### Return type
+
+**void**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No Content |  -  |
+**400** | Bad Request |  -  |
+**403** | Forbidden |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
@@ -2785,6 +2977,61 @@ Name | Type | Description  | Notes
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 **409** | Conflict |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1StopNetdump**
+> void v1StopNetdump()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .InstancesApi(configuration);
+
+let body:.InstancesApiV1StopNetdumpRequest = {
+  // string | Instance ID - uuid
+  instanceId: "instanceId_example",
+};
+
+apiInstance.v1StopNetdump(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
+
+
+### Return type
+
+**void**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No Content |  -  |
+**400** | Bad Request |  -  |
+**403** | Forbidden |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
