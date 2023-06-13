@@ -15,84 +15,74 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class AgentApp {
+export class NetdumpFilter {
     /**
     * 
     */
-    'tags'?: Array<string> | null;
+    'portRanges'?: Array<string> | null;
     /**
     * 
     */
-    'running'?: boolean | null;
+    'srcPorts'?: Array<string> | null;
     /**
     * 
     */
-    'diskUsage'?: number | null;
+    'dstPorts'?: Array<string> | null;
     /**
     * 
     */
-    'date'?: number | null;
+    'ports'?: Array<string> | null;
     /**
     * 
     */
-    'applicationType'?: string | null;
+    'protocols'?: Array<string> | null;
     /**
     * 
     */
-    'name'?: string | null;
-    /**
-    * 
-    */
-    'bundleID'?: string | null;
+    'processes'?: Array<string> | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "tags",
-            "baseName": "tags",
+            "name": "portRanges",
+            "baseName": "portRanges",
             "type": "Array<string>",
             "format": ""
         },
         {
-            "name": "running",
-            "baseName": "running",
-            "type": "boolean",
+            "name": "srcPorts",
+            "baseName": "srcPorts",
+            "type": "Array<string>",
             "format": ""
         },
         {
-            "name": "diskUsage",
-            "baseName": "diskUsage",
-            "type": "number",
+            "name": "dstPorts",
+            "baseName": "dstPorts",
+            "type": "Array<string>",
             "format": ""
         },
         {
-            "name": "date",
-            "baseName": "Date",
-            "type": "number",
+            "name": "ports",
+            "baseName": "ports",
+            "type": "Array<string>",
             "format": ""
         },
         {
-            "name": "applicationType",
-            "baseName": "applicationType",
-            "type": "string",
+            "name": "protocols",
+            "baseName": "protocols",
+            "type": "Array<string>",
             "format": ""
         },
         {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "bundleID",
-            "baseName": "bundleID",
-            "type": "string",
+            "name": "processes",
+            "baseName": "processes",
+            "type": "Array<string>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return AgentApp.attributeTypeMap;
+        return NetdumpFilter.attributeTypeMap;
     }
 
     public constructor() {
