@@ -6,6 +6,7 @@ HypervisorHooksApi.md
 ImagesApi.md
 InstancesApi.md
 ModelsApi.md
+NetdumpApi.md
 ProjectsApi.md
 README.md
 RolesApi.md
@@ -23,6 +24,7 @@ apis/HypervisorHooksApi.ts
 apis/ImagesApi.ts
 apis/InstancesApi.ts
 apis/ModelsApi.ts
+apis/NetdumpApi.ts
 apis/ProjectsApi.ts
 apis/RolesApi.ts
 apis/SnapshotsApi.ts
@@ -83,6 +85,7 @@ models/InstanceBootOptionsAdditionalTag.ts
 models/InstanceConsoleEndpoint.ts
 models/InstanceCreateOptions.ts
 models/InstanceInput.ts
+models/InstanceNetdumpState.ts
 models/InstanceNetmonState.ts
 models/InstanceReturn.ts
 models/InstanceServices.ts
@@ -99,6 +102,7 @@ models/KernelThread.ts
 models/MediaPlayBody.ts
 models/Model.ts
 models/ModelSoftware.ts
+models/NetdumpFilter.ts
 models/ObjectSerializer.ts
 models/PasswordChangeBody.ts
 models/PasswordResetBody.ts
