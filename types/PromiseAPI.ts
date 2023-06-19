@@ -44,6 +44,7 @@ import { InstanceBootOptionsAdditionalTag } from '../models/InstanceBootOptionsA
 import { InstanceConsoleEndpoint } from '../models/InstanceConsoleEndpoint';
 import { InstanceCreateOptions } from '../models/InstanceCreateOptions';
 import { InstanceInput } from '../models/InstanceInput';
+import { InstanceNetdumpState } from '../models/InstanceNetdumpState';
 import { InstanceNetmonState } from '../models/InstanceNetmonState';
 import { InstanceReturn } from '../models/InstanceReturn';
 import { InstanceServices } from '../models/InstanceServices';
@@ -60,6 +61,7 @@ import { KernelThread } from '../models/KernelThread';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
+import { NetdumpFilter } from '../models/NetdumpFilter';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -899,6 +901,24 @@ export class PromiseInstancesApi {
     }
 
     /**
+     * Download a netdump pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(instanceId: string, _options?: Configuration): Promise<HttpFile> {
+        const result = this.api.v1InstancesInstanceIdNetdumpPcapGet(instanceId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Download a Network Monitor pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetworkMonitorPcapGet(instanceId: string, _options?: Configuration): Promise<HttpFile> {
+        const result = this.api.v1InstancesInstanceIdNetworkMonitorPcapGet(instanceId, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Get Kernel extension ranges
      * @param instanceId Instance ID - uuid
      */
@@ -1075,6 +1095,16 @@ export class PromiseInstancesApi {
     }
 
     /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     * @param netdumpFilter 
+     */
+    public v1StartNetdump(instanceId: string, netdumpFilter?: NetdumpFilter, _options?: Configuration): Promise<void> {
+        const result = this.api.v1StartNetdump(instanceId, netdumpFilter, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Start Network Monitor on an instance.
      * @param instanceId Instance ID - uuid
      */
@@ -1108,6 +1138,15 @@ export class PromiseInstancesApi {
      */
     public v1StopInstance(instanceId: string, instanceStopOptions?: InstanceStopOptions, _options?: Configuration): Promise<void> {
         const result = this.api.v1StopInstance(instanceId, instanceStopOptions, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     */
+    public v1StopNetdump(instanceId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.v1StopNetdump(instanceId, _options);
         return result.toPromise();
     }
 
@@ -1191,6 +1230,53 @@ export class PromiseModelsApi {
      */
     public v1GetModels(_options?: Configuration): Promise<Array<Model>> {
         const result = this.api.v1GetModels(_options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableNetdumpApi } from './ObservableAPI';
+
+import { NetdumpApiRequestFactory, NetdumpApiResponseProcessor} from "../apis/NetdumpApi";
+export class PromiseNetdumpApi {
+    private api: ObservableNetdumpApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: NetdumpApiRequestFactory,
+        responseProcessor?: NetdumpApiResponseProcessor
+    ) {
+        this.api = new ObservableNetdumpApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Download a netdump pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(instanceId: string, _options?: Configuration): Promise<HttpFile> {
+        const result = this.api.v1InstancesInstanceIdNetdumpPcapGet(instanceId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     * @param netdumpFilter 
+     */
+    public v1StartNetdump(instanceId: string, netdumpFilter?: NetdumpFilter, _options?: Configuration): Promise<void> {
+        const result = this.api.v1StartNetdump(instanceId, netdumpFilter, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     */
+    public v1StopNetdump(instanceId: string, _options?: Configuration): Promise<void> {
+        const result = this.api.v1StopNetdump(instanceId, _options);
         return result.toPromise();
     }
 
