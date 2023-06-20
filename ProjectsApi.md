@@ -102,7 +102,6 @@ let body:.ProjectsApiV1CreateProjectRequest = {
     id: "id_example",
     name: "name_example",
     settings: {
-      version: 3.14,
       internetAccess: true,
       dhcp: true,
     },
@@ -574,7 +573,6 @@ let body:.ProjectsApiV1UpdateProjectRequest = {
     id: "id_example",
     name: "name_example",
     settings: {
-      version: 3.14,
       internetAccess: true,
       dhcp: true,
     },
@@ -647,7 +645,6 @@ let body:.ProjectsApiV1UpdateProjectSettingsRequest = {
   projectId: "projectId_example",
   // ProjectSettings | New settings
   projectSettings: {
-    version: 3.14,
     internetAccess: true,
     dhcp: true,
   },

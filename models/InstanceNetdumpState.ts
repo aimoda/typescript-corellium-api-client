@@ -10,50 +10,49 @@
  * Do not edit the class manually.
  */
 
-import { User } from '../models/User';
 import { HttpFile } from '../http/http';
 
 /**
 * 
 */
-export class Team {
+export class InstanceNetdumpState {
     /**
-    * Team ID
+    * 
     */
-    'id': string;
+    'hash'?: string | null;
     /**
-    * Team Label
+    * 
     */
-    'label': string;
+    'info'?: string | null;
     /**
-    * Users
+    * 
     */
-    'users'?: Array<User> | null;
+    'enabled'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "label",
-            "baseName": "label",
+            "name": "hash",
+            "baseName": "hash",
             "type": "string",
             "format": ""
         },
         {
-            "name": "users",
-            "baseName": "users",
-            "type": "Array<User>",
+            "name": "info",
+            "baseName": "info",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Team.attributeTypeMap;
+        return InstanceNetdumpState.attributeTypeMap;
     }
 
     public constructor() {
