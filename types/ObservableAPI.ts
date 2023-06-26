@@ -45,6 +45,7 @@ import { InstanceBootOptionsAdditionalTag } from '../models/InstanceBootOptionsA
 import { InstanceConsoleEndpoint } from '../models/InstanceConsoleEndpoint';
 import { InstanceCreateOptions } from '../models/InstanceCreateOptions';
 import { InstanceInput } from '../models/InstanceInput';
+import { InstanceNetdumpState } from '../models/InstanceNetdumpState';
 import { InstanceNetmonState } from '../models/InstanceNetmonState';
 import { InstanceReturn } from '../models/InstanceReturn';
 import { InstanceServices } from '../models/InstanceServices';
@@ -61,6 +62,7 @@ import { KernelThread } from '../models/KernelThread';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
+import { NetdumpFilter } from '../models/NetdumpFilter';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -1877,6 +1879,52 @@ export class ObservableInstancesApi {
     }
 
     /**
+     * Download a netdump pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(instanceId: string, _options?: Configuration): Observable<HttpFile> {
+        const requestContextPromise = this.requestFactory.v1InstancesInstanceIdNetdumpPcapGet(instanceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1InstancesInstanceIdNetdumpPcapGet(rsp)));
+            }));
+    }
+
+    /**
+     * Download a Network Monitor pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetworkMonitorPcapGet(instanceId: string, _options?: Configuration): Observable<HttpFile> {
+        const requestContextPromise = this.requestFactory.v1InstancesInstanceIdNetworkMonitorPcapGet(instanceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1InstancesInstanceIdNetworkMonitorPcapGet(rsp)));
+            }));
+    }
+
+    /**
      * Get Kernel extension ranges
      * @param instanceId Instance ID - uuid
      */
@@ -2305,6 +2353,30 @@ export class ObservableInstancesApi {
     }
 
     /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     * @param netdumpFilter 
+     */
+    public v1StartNetdump(instanceId: string, netdumpFilter?: NetdumpFilter, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1StartNetdump(instanceId, netdumpFilter, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StartNetdump(rsp)));
+            }));
+    }
+
+    /**
      * Start Network Monitor on an instance.
      * @param instanceId Instance ID - uuid
      */
@@ -2394,6 +2466,29 @@ export class ObservableInstancesApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StopInstance(rsp)));
+            }));
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     */
+    public v1StopNetdump(instanceId: string, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1StopNetdump(instanceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StopNetdump(rsp)));
             }));
     }
 
@@ -2574,6 +2669,94 @@ export class ObservableModelsApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1GetModels(rsp)));
+            }));
+    }
+
+}
+
+import { NetdumpApiRequestFactory, NetdumpApiResponseProcessor} from "../apis/NetdumpApi";
+export class ObservableNetdumpApi {
+    private requestFactory: NetdumpApiRequestFactory;
+    private responseProcessor: NetdumpApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: NetdumpApiRequestFactory,
+        responseProcessor?: NetdumpApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new NetdumpApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new NetdumpApiResponseProcessor();
+    }
+
+    /**
+     * Download a netdump pcap file
+     * @param instanceId Instance ID - uuid
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(instanceId: string, _options?: Configuration): Observable<HttpFile> {
+        const requestContextPromise = this.requestFactory.v1InstancesInstanceIdNetdumpPcapGet(instanceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1InstancesInstanceIdNetdumpPcapGet(rsp)));
+            }));
+    }
+
+    /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     * @param netdumpFilter 
+     */
+    public v1StartNetdump(instanceId: string, netdumpFilter?: NetdumpFilter, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1StartNetdump(instanceId, netdumpFilter, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StartNetdump(rsp)));
+            }));
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param instanceId Instance ID - uuid
+     */
+    public v1StopNetdump(instanceId: string, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1StopNetdump(instanceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StopNetdump(rsp)));
             }));
     }
 
