@@ -44,6 +44,7 @@ import { InstanceBootOptionsAdditionalTag } from '../models/InstanceBootOptionsA
 import { InstanceConsoleEndpoint } from '../models/InstanceConsoleEndpoint';
 import { InstanceCreateOptions } from '../models/InstanceCreateOptions';
 import { InstanceInput } from '../models/InstanceInput';
+import { InstanceNetdumpState } from '../models/InstanceNetdumpState';
 import { InstanceNetmonState } from '../models/InstanceNetmonState';
 import { InstanceReturn } from '../models/InstanceReturn';
 import { InstanceServices } from '../models/InstanceServices';
@@ -60,6 +61,7 @@ import { KernelThread } from '../models/KernelThread';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
+import { NetdumpFilter } from '../models/NetdumpFilter';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -1393,6 +1395,24 @@ export interface InstancesApiV1InstancesInstanceIdMessagePostRequest {
     instanceId: string
 }
 
+export interface InstancesApiV1InstancesInstanceIdNetdumpPcapGetRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof InstancesApiv1InstancesInstanceIdNetdumpPcapGet
+     */
+    instanceId: string
+}
+
+export interface InstancesApiV1InstancesInstanceIdNetworkMonitorPcapGetRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof InstancesApiv1InstancesInstanceIdNetworkMonitorPcapGet
+     */
+    instanceId: string
+}
+
 export interface InstancesApiV1KcrangeRequest {
     /**
      * Instance ID - uuid
@@ -1627,6 +1647,21 @@ export interface InstancesApiV1StartInstanceRequest {
     instanceStartOptions?: InstanceStartOptions
 }
 
+export interface InstancesApiV1StartNetdumpRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof InstancesApiv1StartNetdump
+     */
+    instanceId: string
+    /**
+     * 
+     * @type NetdumpFilter
+     * @memberof InstancesApiv1StartNetdump
+     */
+    netdumpFilter?: NetdumpFilter
+}
+
 export interface InstancesApiV1StartNetworkMonitorRequest {
     /**
      * Instance ID - uuid
@@ -1667,6 +1702,15 @@ export interface InstancesApiV1StopInstanceRequest {
      * @memberof InstancesApiv1StopInstance
      */
     instanceStopOptions?: InstanceStopOptions
+}
+
+export interface InstancesApiV1StopNetdumpRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof InstancesApiv1StopNetdump
+     */
+    instanceId: string
 }
 
 export interface InstancesApiV1StopNetworkMonitorRequest {
@@ -1927,6 +1971,22 @@ export class ObjectInstancesApi {
     }
 
     /**
+     * Download a netdump pcap file
+     * @param param the request object
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(param: InstancesApiV1InstancesInstanceIdNetdumpPcapGetRequest, options?: Configuration): Promise<HttpFile> {
+        return this.api.v1InstancesInstanceIdNetdumpPcapGet(param.instanceId,  options).toPromise();
+    }
+
+    /**
+     * Download a Network Monitor pcap file
+     * @param param the request object
+     */
+    public v1InstancesInstanceIdNetworkMonitorPcapGet(param: InstancesApiV1InstancesInstanceIdNetworkMonitorPcapGetRequest, options?: Configuration): Promise<HttpFile> {
+        return this.api.v1InstancesInstanceIdNetworkMonitorPcapGet(param.instanceId,  options).toPromise();
+    }
+
+    /**
      * Get Kernel extension ranges
      * @param param the request object
      */
@@ -2073,6 +2133,14 @@ export class ObjectInstancesApi {
     }
 
     /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param param the request object
+     */
+    public v1StartNetdump(param: InstancesApiV1StartNetdumpRequest, options?: Configuration): Promise<void> {
+        return this.api.v1StartNetdump(param.instanceId, param.netdumpFilter,  options).toPromise();
+    }
+
+    /**
      * Start Network Monitor on an instance.
      * @param param the request object
      */
@@ -2102,6 +2170,14 @@ export class ObjectInstancesApi {
      */
     public v1StopInstance(param: InstancesApiV1StopInstanceRequest, options?: Configuration): Promise<void> {
         return this.api.v1StopInstance(param.instanceId, param.instanceStopOptions,  options).toPromise();
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param param the request object
+     */
+    public v1StopNetdump(param: InstancesApiV1StopNetdumpRequest, options?: Configuration): Promise<void> {
+        return this.api.v1StopNetdump(param.instanceId,  options).toPromise();
     }
 
     /**
@@ -2182,6 +2258,75 @@ export class ObjectModelsApi {
      */
     public v1GetModels(param: ModelsApiV1GetModelsRequest = {}, options?: Configuration): Promise<Array<Model>> {
         return this.api.v1GetModels( options).toPromise();
+    }
+
+}
+
+import { ObservableNetdumpApi } from "./ObservableAPI";
+import { NetdumpApiRequestFactory, NetdumpApiResponseProcessor} from "../apis/NetdumpApi";
+
+export interface NetdumpApiV1InstancesInstanceIdNetdumpPcapGetRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof NetdumpApiv1InstancesInstanceIdNetdumpPcapGet
+     */
+    instanceId: string
+}
+
+export interface NetdumpApiV1StartNetdumpRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof NetdumpApiv1StartNetdump
+     */
+    instanceId: string
+    /**
+     * 
+     * @type NetdumpFilter
+     * @memberof NetdumpApiv1StartNetdump
+     */
+    netdumpFilter?: NetdumpFilter
+}
+
+export interface NetdumpApiV1StopNetdumpRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof NetdumpApiv1StopNetdump
+     */
+    instanceId: string
+}
+
+export class ObjectNetdumpApi {
+    private api: ObservableNetdumpApi
+
+    public constructor(configuration: Configuration, requestFactory?: NetdumpApiRequestFactory, responseProcessor?: NetdumpApiResponseProcessor) {
+        this.api = new ObservableNetdumpApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Download a netdump pcap file
+     * @param param the request object
+     */
+    public v1InstancesInstanceIdNetdumpPcapGet(param: NetdumpApiV1InstancesInstanceIdNetdumpPcapGetRequest, options?: Configuration): Promise<HttpFile> {
+        return this.api.v1InstancesInstanceIdNetdumpPcapGet(param.instanceId,  options).toPromise();
+    }
+
+    /**
+     * Start Enhanced Network Monitor on an instance.
+     * @param param the request object
+     */
+    public v1StartNetdump(param: NetdumpApiV1StartNetdumpRequest, options?: Configuration): Promise<void> {
+        return this.api.v1StartNetdump(param.instanceId, param.netdumpFilter,  options).toPromise();
+    }
+
+    /**
+     * Stop Enhanced Network Monitor on an instance.
+     * @param param the request object
+     */
+    public v1StopNetdump(param: NetdumpApiV1StopNetdumpRequest, options?: Configuration): Promise<void> {
+        return this.api.v1StopNetdump(param.instanceId,  options).toPromise();
     }
 
 }
