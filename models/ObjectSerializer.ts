@@ -24,6 +24,8 @@ export * from '../models/CouponOptions';
 export * from '../models/CreateTeam';
 export * from '../models/CreatedBy';
 export * from '../models/Credentials';
+export * from '../models/DomainAuthProviderRequest';
+export * from '../models/DomainAuthProviderResponse';
 export * from '../models/DomainOptions';
 export * from '../models/Extension';
 export * from '../models/Features';
@@ -59,6 +61,7 @@ export * from '../models/MediaPlayBody';
 export * from '../models/Model';
 export * from '../models/ModelSoftware';
 export * from '../models/NetdumpFilter';
+export * from '../models/OpenIDConfig';
 export * from '../models/PasswordChangeBody';
 export * from '../models/PasswordResetBody';
 export * from '../models/PatchInstanceOptions';
@@ -126,6 +129,8 @@ import { CouponOptions, CouponOptionsTypeEnum     } from '../models/CouponOption
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
+import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
 import { Extension } from '../models/Extension';
 import { Features } from '../models/Features';
@@ -161,6 +166,7 @@ import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
+import { OpenIDConfig } from '../models/OpenIDConfig';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions , PatchInstanceOptionsStateEnum     } from '../models/PatchInstanceOptions';
@@ -265,6 +271,8 @@ let typeMap: {[index: string]: any} = {
     "CreateTeam": CreateTeam,
     "CreatedBy": CreatedBy,
     "Credentials": Credentials,
+    "DomainAuthProviderRequest": DomainAuthProviderRequest,
+    "DomainAuthProviderResponse": DomainAuthProviderResponse,
     "DomainOptions": DomainOptions,
     "Extension": Extension,
     "Features": Features,
@@ -298,6 +306,7 @@ let typeMap: {[index: string]: any} = {
     "Model": Model,
     "ModelSoftware": ModelSoftware,
     "NetdumpFilter": NetdumpFilter,
+    "OpenIDConfig": OpenIDConfig,
     "PasswordChangeBody": PasswordChangeBody,
     "PasswordResetBody": PasswordResetBody,
     "PatchInstanceOptions": PatchInstanceOptions,
