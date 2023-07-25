@@ -10,49 +10,57 @@
  * Do not edit the class manually.
  */
 
+import { OpenIDConfig } from '../models/OpenIDConfig';
 import { HttpFile } from '../http/http';
 
 /**
 * 
 */
-export class ApiError {
+export class DomainAuthProviderRequest {
     /**
-    * Error text
+    * Provider Type
     */
-    'error': string;
+    'providerType': string;
     /**
-    * Error ID
+    * Enabled/Disabled
     */
-    'errorID': string;
+    'enabled': boolean;
     /**
-    * Upstream error description
+    * Login Button Text
     */
-    'originalError'?: string | null;
+    'label'?: string | null;
+    'config'?: OpenIDConfig;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "error",
-            "baseName": "error",
+            "name": "providerType",
+            "baseName": "providerType",
             "type": "string",
             "format": ""
         },
         {
-            "name": "errorID",
-            "baseName": "errorID",
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "label",
+            "baseName": "label",
             "type": "string",
             "format": ""
         },
         {
-            "name": "originalError",
-            "baseName": "originalError",
-            "type": "string",
+            "name": "config",
+            "baseName": "config",
+            "type": "OpenIDConfig",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ApiError.attributeTypeMap;
+        return DomainAuthProviderRequest.attributeTypeMap;
     }
 
     public constructor() {
