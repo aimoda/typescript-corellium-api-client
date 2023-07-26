@@ -2118,6 +2118,8 @@ const apiInstance = new .InstancesApi(configuration);
 let body:.InstancesApiV1RestoreBackupRequest = {
   // string | Instance ID - uuid
   instanceId: "instanceId_example",
+  // any | Restore backup data (optional)
+  body: {},
 };
 
 apiInstance.v1RestoreBackup(body).then((data:any) => {
@@ -2130,6 +2132,7 @@ apiInstance.v1RestoreBackup(body).then((data:any) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **body** | **any**| Restore backup data |
  **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
 
 
@@ -2143,7 +2146,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
