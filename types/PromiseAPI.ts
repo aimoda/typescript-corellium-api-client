@@ -27,6 +27,8 @@ import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
+import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
 import { Extension } from '../models/Extension';
 import { Features } from '../models/Features';
@@ -62,6 +64,7 @@ import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
+import { OpenIDConfig } from '../models/OpenIDConfig';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -430,6 +433,65 @@ export class PromiseCoreTraceApi {
      */
     public v1StopCoreTrace(instanceId: string, _options?: Configuration): Promise<void> {
         const result = this.api.v1StopCoreTrace(instanceId, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableDomainAuthProviderApi } from './ObservableAPI';
+
+import { DomainAuthProviderApiRequestFactory, DomainAuthProviderApiResponseProcessor} from "../apis/DomainAuthProviderApi";
+export class PromiseDomainAuthProviderApi {
+    private api: ObservableDomainAuthProviderApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DomainAuthProviderApiRequestFactory,
+        responseProcessor?: DomainAuthProviderApiResponseProcessor
+    ) {
+        this.api = new ObservableDomainAuthProviderApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create a new auth provider for a domain
+     * @param domainId Domain ID - uuid
+     * @param domainAuthProviderRequest Request Data
+     */
+    public v1CreateDomainAuthProvider(domainId: string, domainAuthProviderRequest: DomainAuthProviderRequest, _options?: Configuration): Promise<DomainAuthProviderResponse> {
+        const result = this.api.v1CreateDomainAuthProvider(domainId, domainAuthProviderRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Delete an auth provider from a domain
+     * @param domainId Domain ID - uuid
+     * @param providerId Provider ID - uuid
+     */
+    public v1DeleteDomainAuthProvider(domainId: string, providerId: string, _options?: Configuration): Promise<any> {
+        const result = this.api.v1DeleteDomainAuthProvider(domainId, providerId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Return all configured auth providers for a domain (including globally configured providers)
+     * @param domainId Domain ID - uuid
+     */
+    public v1GetDomainAuthProviders(domainId: string, _options?: Configuration): Promise<Array<DomainAuthProviderResponse>> {
+        const result = this.api.v1GetDomainAuthProviders(domainId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update an auth provider for a domain
+     * @param domainId Domain ID - uuid
+     * @param providerId Provider ID - uuid
+     * @param domainAuthProviderRequest Request Data
+     */
+    public v1UpdateDomainAuthProvider(domainId: string, providerId: string, domainAuthProviderRequest: DomainAuthProviderRequest, _options?: Configuration): Promise<DomainAuthProviderResponse> {
+        const result = this.api.v1UpdateDomainAuthProvider(domainId, providerId, domainAuthProviderRequest, _options);
         return result.toPromise();
     }
 
@@ -1008,9 +1070,10 @@ export class PromiseInstancesApi {
     /**
      * Restore backup
      * @param instanceId Instance ID - uuid
+     * @param body Restore backup data
      */
-    public v1RestoreBackup(instanceId: string, _options?: Configuration): Promise<void> {
-        const result = this.api.v1RestoreBackup(instanceId, _options);
+    public v1RestoreBackup(instanceId: string, body?: any, _options?: Configuration): Promise<void> {
+        const result = this.api.v1RestoreBackup(instanceId, body, _options);
         return result.toPromise();
     }
 
@@ -1194,6 +1257,33 @@ export class PromiseInstancesApi {
      */
     public v2GetInstanceState(instanceId: string, returnAttr?: Array<string>, _options?: Configuration): Promise<InstanceState> {
         const result = this.api.v2GetInstanceState(instanceId, returnAttr, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableLicensingApi } from './ObservableAPI';
+
+import { LicensingApiRequestFactory, LicensingApiResponseProcessor} from "../apis/LicensingApi";
+export class PromiseLicensingApi {
+    private api: ObservableLicensingApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: LicensingApiRequestFactory,
+        responseProcessor?: LicensingApiResponseProcessor
+    ) {
+        this.api = new ObservableLicensingApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get all supported features for user
+     */
+    public v1GetSupportedFeatures(_options?: Configuration): Promise<Array<string>> {
+        const result = this.api.v1GetSupportedFeatures(_options);
         return result.toPromise();
     }
 
@@ -1825,68 +1915,6 @@ export class PromiseUsersApi {
      */
     public v1UsersLogin(credentials: Credentials, _options?: Configuration): Promise<Token> {
         const result = this.api.v1UsersLogin(credentials, _options);
-        return result.toPromise();
-    }
-
-
-}
-
-
-
-import { ObservableWebPlayerApi } from './ObservableAPI';
-
-import { WebPlayerApiRequestFactory, WebPlayerApiResponseProcessor} from "../apis/WebPlayerApi";
-export class PromiseWebPlayerApi {
-    private api: ObservableWebPlayerApi
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: WebPlayerApiRequestFactory,
-        responseProcessor?: WebPlayerApiResponseProcessor
-    ) {
-        this.api = new ObservableWebPlayerApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * Retrieve the list of allowed domains for all Webplayer sessions
-     */
-    public v1WebPlayerAllowedDomains(_options?: Configuration): Promise<WebPlayerSession> {
-        const result = this.api.v1WebPlayerAllowedDomains(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * Create a new Webplayer Session
-     * @param webPlayerCreateSessionRequest Request Data
-     */
-    public v1WebPlayerCreateSession(webPlayerCreateSessionRequest: WebPlayerCreateSessionRequest, _options?: Configuration): Promise<WebPlayerSession> {
-        const result = this.api.v1WebPlayerCreateSession(webPlayerCreateSessionRequest, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Tear down a Webplayer Session
-     * @param sessionId Webplayer Session identifier
-     */
-    public v1WebPlayerDestroySession(sessionId: string, _options?: Configuration): Promise<void> {
-        const result = this.api.v1WebPlayerDestroySession(sessionId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * List all Webplayer sessions
-     */
-    public v1WebPlayerListSessions(_options?: Configuration): Promise<Array<WebPlayerSession>> {
-        const result = this.api.v1WebPlayerListSessions(_options);
-        return result.toPromise();
-    }
-
-    /**
-     * Retrieve Webplayer Session Information
-     * @param sessionId Webplayer Session identifier
-     */
-    public v1WebPlayerSessionInfo(sessionId: string, _options?: Configuration): Promise<WebPlayerSession> {
-        const result = this.api.v1WebPlayerSessionInfo(sessionId, _options);
         return result.toPromise();
     }
 
