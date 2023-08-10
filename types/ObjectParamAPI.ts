@@ -27,6 +27,8 @@ import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
+import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
 import { Extension } from '../models/Extension';
 import { Features } from '../models/Features';
@@ -62,6 +64,7 @@ import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
+import { OpenIDConfig } from '../models/OpenIDConfig';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -726,6 +729,110 @@ export class ObjectCoreTraceApi {
      */
     public v1StopCoreTrace(param: CoreTraceApiV1StopCoreTraceRequest, options?: Configuration): Promise<void> {
         return this.api.v1StopCoreTrace(param.instanceId,  options).toPromise();
+    }
+
+}
+
+import { ObservableDomainAuthProviderApi } from "./ObservableAPI";
+import { DomainAuthProviderApiRequestFactory, DomainAuthProviderApiResponseProcessor} from "../apis/DomainAuthProviderApi";
+
+export interface DomainAuthProviderApiV1CreateDomainAuthProviderRequest {
+    /**
+     * Domain ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1CreateDomainAuthProvider
+     */
+    domainId: string
+    /**
+     * Request Data
+     * @type DomainAuthProviderRequest
+     * @memberof DomainAuthProviderApiv1CreateDomainAuthProvider
+     */
+    domainAuthProviderRequest: DomainAuthProviderRequest
+}
+
+export interface DomainAuthProviderApiV1DeleteDomainAuthProviderRequest {
+    /**
+     * Domain ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1DeleteDomainAuthProvider
+     */
+    domainId: string
+    /**
+     * Provider ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1DeleteDomainAuthProvider
+     */
+    providerId: string
+}
+
+export interface DomainAuthProviderApiV1GetDomainAuthProvidersRequest {
+    /**
+     * Domain ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1GetDomainAuthProviders
+     */
+    domainId: string
+}
+
+export interface DomainAuthProviderApiV1UpdateDomainAuthProviderRequest {
+    /**
+     * Domain ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1UpdateDomainAuthProvider
+     */
+    domainId: string
+    /**
+     * Provider ID - uuid
+     * @type string
+     * @memberof DomainAuthProviderApiv1UpdateDomainAuthProvider
+     */
+    providerId: string
+    /**
+     * Request Data
+     * @type DomainAuthProviderRequest
+     * @memberof DomainAuthProviderApiv1UpdateDomainAuthProvider
+     */
+    domainAuthProviderRequest: DomainAuthProviderRequest
+}
+
+export class ObjectDomainAuthProviderApi {
+    private api: ObservableDomainAuthProviderApi
+
+    public constructor(configuration: Configuration, requestFactory?: DomainAuthProviderApiRequestFactory, responseProcessor?: DomainAuthProviderApiResponseProcessor) {
+        this.api = new ObservableDomainAuthProviderApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Create a new auth provider for a domain
+     * @param param the request object
+     */
+    public v1CreateDomainAuthProvider(param: DomainAuthProviderApiV1CreateDomainAuthProviderRequest, options?: Configuration): Promise<DomainAuthProviderResponse> {
+        return this.api.v1CreateDomainAuthProvider(param.domainId, param.domainAuthProviderRequest,  options).toPromise();
+    }
+
+    /**
+     * Delete an auth provider from a domain
+     * @param param the request object
+     */
+    public v1DeleteDomainAuthProvider(param: DomainAuthProviderApiV1DeleteDomainAuthProviderRequest, options?: Configuration): Promise<any> {
+        return this.api.v1DeleteDomainAuthProvider(param.domainId, param.providerId,  options).toPromise();
+    }
+
+    /**
+     * Return all configured auth providers for a domain (including globally configured providers)
+     * @param param the request object
+     */
+    public v1GetDomainAuthProviders(param: DomainAuthProviderApiV1GetDomainAuthProvidersRequest, options?: Configuration): Promise<Array<DomainAuthProviderResponse>> {
+        return this.api.v1GetDomainAuthProviders(param.domainId,  options).toPromise();
+    }
+
+    /**
+     * Update an auth provider for a domain
+     * @param param the request object
+     */
+    public v1UpdateDomainAuthProvider(param: DomainAuthProviderApiV1UpdateDomainAuthProviderRequest, options?: Configuration): Promise<DomainAuthProviderResponse> {
+        return this.api.v1UpdateDomainAuthProvider(param.domainId, param.providerId, param.domainAuthProviderRequest,  options).toPromise();
     }
 
 }
@@ -1531,6 +1638,12 @@ export interface InstancesApiV1RestoreBackupRequest {
      * @memberof InstancesApiv1RestoreBackup
      */
     instanceId: string
+    /**
+     * Restore backup data
+     * @type any
+     * @memberof InstancesApiv1RestoreBackup
+     */
+    body?: any
 }
 
 export interface InstancesApiV1RestoreInstanceSnapshotRequest {
@@ -2064,7 +2177,7 @@ export class ObjectInstancesApi {
      * @param param the request object
      */
     public v1RestoreBackup(param: InstancesApiV1RestoreBackupRequest, options?: Configuration): Promise<void> {
-        return this.api.v1RestoreBackup(param.instanceId,  options).toPromise();
+        return this.api.v1RestoreBackup(param.instanceId, param.body,  options).toPromise();
     }
 
     /**
@@ -2218,6 +2331,29 @@ export class ObjectInstancesApi {
      */
     public v2GetInstanceState(param: InstancesApiV2GetInstanceStateRequest, options?: Configuration): Promise<InstanceState> {
         return this.api.v2GetInstanceState(param.instanceId, param.returnAttr,  options).toPromise();
+    }
+
+}
+
+import { ObservableLicensingApi } from "./ObservableAPI";
+import { LicensingApiRequestFactory, LicensingApiResponseProcessor} from "../apis/LicensingApi";
+
+export interface LicensingApiV1GetSupportedFeaturesRequest {
+}
+
+export class ObjectLicensingApi {
+    private api: ObservableLicensingApi
+
+    public constructor(configuration: Configuration, requestFactory?: LicensingApiRequestFactory, responseProcessor?: LicensingApiResponseProcessor) {
+        this.api = new ObservableLicensingApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get all supported features for user
+     * @param param the request object
+     */
+    public v1GetSupportedFeatures(param: LicensingApiV1GetSupportedFeaturesRequest = {}, options?: Configuration): Promise<Array<string>> {
+        return this.api.v1GetSupportedFeatures( options).toPromise();
     }
 
 }
@@ -3277,91 +3413,6 @@ export class ObjectUsersApi {
      */
     public v1UsersLogin(param: UsersApiV1UsersLoginRequest, options?: Configuration): Promise<Token> {
         return this.api.v1UsersLogin(param.credentials,  options).toPromise();
-    }
-
-}
-
-import { ObservableWebPlayerApi } from "./ObservableAPI";
-import { WebPlayerApiRequestFactory, WebPlayerApiResponseProcessor} from "../apis/WebPlayerApi";
-
-export interface WebPlayerApiV1WebPlayerAllowedDomainsRequest {
-}
-
-export interface WebPlayerApiV1WebPlayerCreateSessionRequest {
-    /**
-     * Request Data
-     * @type WebPlayerCreateSessionRequest
-     * @memberof WebPlayerApiv1WebPlayerCreateSession
-     */
-    webPlayerCreateSessionRequest: WebPlayerCreateSessionRequest
-}
-
-export interface WebPlayerApiV1WebPlayerDestroySessionRequest {
-    /**
-     * Webplayer Session identifier
-     * @type string
-     * @memberof WebPlayerApiv1WebPlayerDestroySession
-     */
-    sessionId: string
-}
-
-export interface WebPlayerApiV1WebPlayerListSessionsRequest {
-}
-
-export interface WebPlayerApiV1WebPlayerSessionInfoRequest {
-    /**
-     * Webplayer Session identifier
-     * @type string
-     * @memberof WebPlayerApiv1WebPlayerSessionInfo
-     */
-    sessionId: string
-}
-
-export class ObjectWebPlayerApi {
-    private api: ObservableWebPlayerApi
-
-    public constructor(configuration: Configuration, requestFactory?: WebPlayerApiRequestFactory, responseProcessor?: WebPlayerApiResponseProcessor) {
-        this.api = new ObservableWebPlayerApi(configuration, requestFactory, responseProcessor);
-    }
-
-    /**
-     * Retrieve the list of allowed domains for all Webplayer sessions
-     * @param param the request object
-     */
-    public v1WebPlayerAllowedDomains(param: WebPlayerApiV1WebPlayerAllowedDomainsRequest = {}, options?: Configuration): Promise<WebPlayerSession> {
-        return this.api.v1WebPlayerAllowedDomains( options).toPromise();
-    }
-
-    /**
-     * Create a new Webplayer Session
-     * @param param the request object
-     */
-    public v1WebPlayerCreateSession(param: WebPlayerApiV1WebPlayerCreateSessionRequest, options?: Configuration): Promise<WebPlayerSession> {
-        return this.api.v1WebPlayerCreateSession(param.webPlayerCreateSessionRequest,  options).toPromise();
-    }
-
-    /**
-     * Tear down a Webplayer Session
-     * @param param the request object
-     */
-    public v1WebPlayerDestroySession(param: WebPlayerApiV1WebPlayerDestroySessionRequest, options?: Configuration): Promise<void> {
-        return this.api.v1WebPlayerDestroySession(param.sessionId,  options).toPromise();
-    }
-
-    /**
-     * List all Webplayer sessions
-     * @param param the request object
-     */
-    public v1WebPlayerListSessions(param: WebPlayerApiV1WebPlayerListSessionsRequest = {}, options?: Configuration): Promise<Array<WebPlayerSession>> {
-        return this.api.v1WebPlayerListSessions( options).toPromise();
-    }
-
-    /**
-     * Retrieve Webplayer Session Information
-     * @param param the request object
-     */
-    public v1WebPlayerSessionInfo(param: WebPlayerApiV1WebPlayerSessionInfoRequest, options?: Configuration): Promise<WebPlayerSession> {
-        return this.api.v1WebPlayerSessionInfo(param.sessionId,  options).toPromise();
     }
 
 }
