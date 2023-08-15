@@ -15,44 +15,54 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class ApiError {
+export class OpenIDConfig {
     /**
-    * Error text
+    * Service Discovery URL
     */
-    'error': string;
+    'discoveryUrl'?: string | null;
     /**
-    * Error ID
+    * Service Client ID
     */
-    'errorID': string;
+    'clientId'?: string | null;
     /**
-    * Upstream error description
+    * Service Client Secret
     */
-    'originalError'?: string | null;
+    'clientSecret'?: string | null;
+    /**
+    * Only accept individuals with invitations
+    */
+    'invitedOnly'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "error",
-            "baseName": "error",
+            "name": "discoveryUrl",
+            "baseName": "discoveryUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "errorID",
-            "baseName": "errorID",
+            "name": "clientId",
+            "baseName": "clientId",
             "type": "string",
             "format": ""
         },
         {
-            "name": "originalError",
-            "baseName": "originalError",
+            "name": "clientSecret",
+            "baseName": "clientSecret",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "invitedOnly",
+            "baseName": "invitedOnly",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ApiError.attributeTypeMap;
+        return OpenIDConfig.attributeTypeMap;
     }
 
     public constructor() {
