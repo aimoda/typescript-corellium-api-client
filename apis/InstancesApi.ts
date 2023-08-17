@@ -1492,14 +1492,16 @@ export class InstancesApiRequestFactory extends BaseAPIRequestFactory {
     /**
      * Restore backup
      * @param instanceId Instance ID - uuid
+     * @param body Restore backup data
      */
-    public async v1RestoreBackup(instanceId: string, _options?: Configuration): Promise<RequestContext> {
+    public async v1RestoreBackup(instanceId: string, body?: any, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'instanceId' is not null or undefined
         if (instanceId === null || instanceId === undefined) {
             throw new RequiredError("InstancesApi", "v1RestoreBackup", "instanceId");
         }
+
 
 
         // Path Params
@@ -1510,6 +1512,17 @@ export class InstancesApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "any", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
