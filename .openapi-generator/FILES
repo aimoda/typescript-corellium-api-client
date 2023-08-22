@@ -1,10 +1,12 @@
 AgentApi.md
 AuthenticationApi.md
 CoreTraceApi.md
+DomainAuthProviderApi.md
 HyperTraceApi.md
 HypervisorHooksApi.md
 ImagesApi.md
 InstancesApi.md
+LicensingApi.md
 ModelsApi.md
 NetdumpApi.md
 ProjectsApi.md
@@ -15,14 +17,15 @@ StatusApi.md
 TeamsApi.md
 TrialRequestsApi.md
 UsersApi.md
-WebPlayerApi.md
 apis/AgentApi.ts
 apis/AuthenticationApi.ts
 apis/CoreTraceApi.ts
+apis/DomainAuthProviderApi.ts
 apis/HyperTraceApi.ts
 apis/HypervisorHooksApi.ts
 apis/ImagesApi.ts
 apis/InstancesApi.ts
+apis/LicensingApi.ts
 apis/ModelsApi.ts
 apis/NetdumpApi.ts
 apis/ProjectsApi.ts
@@ -32,7 +35,6 @@ apis/StatusApi.ts
 apis/TeamsApi.ts
 apis/TrialRequestsApi.ts
 apis/UsersApi.ts
-apis/WebPlayerApi.ts
 apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts
@@ -68,6 +70,8 @@ models/CouponOptions.ts
 models/CreateTeam.ts
 models/CreatedBy.ts
 models/Credentials.ts
+models/DomainAuthProviderRequest.ts
+models/DomainAuthProviderResponse.ts
 models/DomainOptions.ts
 models/Extension.ts
 models/Features.ts
@@ -104,6 +108,7 @@ models/Model.ts
 models/ModelSoftware.ts
 models/NetdumpFilter.ts
 models/ObjectSerializer.ts
+models/OpenIDConfig.ts
 models/PasswordChangeBody.ts
 models/PasswordResetBody.ts
 models/PatchInstanceOptions.ts
