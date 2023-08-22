@@ -28,6 +28,8 @@ import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
+import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
 import { Extension } from '../models/Extension';
 import { Features } from '../models/Features';
@@ -63,6 +65,7 @@ import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
+import { OpenIDConfig } from '../models/OpenIDConfig';
 import { PasswordChangeBody } from '../models/PasswordChangeBody';
 import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
@@ -838,6 +841,120 @@ export class ObservableCoreTraceApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1StopCoreTrace(rsp)));
+            }));
+    }
+
+}
+
+import { DomainAuthProviderApiRequestFactory, DomainAuthProviderApiResponseProcessor} from "../apis/DomainAuthProviderApi";
+export class ObservableDomainAuthProviderApi {
+    private requestFactory: DomainAuthProviderApiRequestFactory;
+    private responseProcessor: DomainAuthProviderApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: DomainAuthProviderApiRequestFactory,
+        responseProcessor?: DomainAuthProviderApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new DomainAuthProviderApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new DomainAuthProviderApiResponseProcessor();
+    }
+
+    /**
+     * Create a new auth provider for a domain
+     * @param domainId Domain ID - uuid
+     * @param domainAuthProviderRequest Request Data
+     */
+    public v1CreateDomainAuthProvider(domainId: string, domainAuthProviderRequest: DomainAuthProviderRequest, _options?: Configuration): Observable<DomainAuthProviderResponse> {
+        const requestContextPromise = this.requestFactory.v1CreateDomainAuthProvider(domainId, domainAuthProviderRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1CreateDomainAuthProvider(rsp)));
+            }));
+    }
+
+    /**
+     * Delete an auth provider from a domain
+     * @param domainId Domain ID - uuid
+     * @param providerId Provider ID - uuid
+     */
+    public v1DeleteDomainAuthProvider(domainId: string, providerId: string, _options?: Configuration): Observable<any> {
+        const requestContextPromise = this.requestFactory.v1DeleteDomainAuthProvider(domainId, providerId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1DeleteDomainAuthProvider(rsp)));
+            }));
+    }
+
+    /**
+     * Return all configured auth providers for a domain (including globally configured providers)
+     * @param domainId Domain ID - uuid
+     */
+    public v1GetDomainAuthProviders(domainId: string, _options?: Configuration): Observable<Array<DomainAuthProviderResponse>> {
+        const requestContextPromise = this.requestFactory.v1GetDomainAuthProviders(domainId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1GetDomainAuthProviders(rsp)));
+            }));
+    }
+
+    /**
+     * Update an auth provider for a domain
+     * @param domainId Domain ID - uuid
+     * @param providerId Provider ID - uuid
+     * @param domainAuthProviderRequest Request Data
+     */
+    public v1UpdateDomainAuthProvider(domainId: string, providerId: string, domainAuthProviderRequest: DomainAuthProviderRequest, _options?: Configuration): Observable<DomainAuthProviderResponse> {
+        const requestContextPromise = this.requestFactory.v1UpdateDomainAuthProvider(domainId, providerId, domainAuthProviderRequest, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1UpdateDomainAuthProvider(rsp)));
             }));
     }
 
@@ -2140,9 +2257,10 @@ export class ObservableInstancesApi {
     /**
      * Restore backup
      * @param instanceId Instance ID - uuid
+     * @param body Restore backup data
      */
-    public v1RestoreBackup(instanceId: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.v1RestoreBackup(instanceId, _options);
+    public v1RestoreBackup(instanceId: string, body?: any, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1RestoreBackup(instanceId, body, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2606,6 +2724,46 @@ export class ObservableInstancesApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v2GetInstanceState(rsp)));
+            }));
+    }
+
+}
+
+import { LicensingApiRequestFactory, LicensingApiResponseProcessor} from "../apis/LicensingApi";
+export class ObservableLicensingApi {
+    private requestFactory: LicensingApiRequestFactory;
+    private responseProcessor: LicensingApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: LicensingApiRequestFactory,
+        responseProcessor?: LicensingApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new LicensingApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new LicensingApiResponseProcessor();
+    }
+
+    /**
+     * Get all supported features for user
+     */
+    public v1GetSupportedFeatures(_options?: Configuration): Observable<Array<string>> {
+        const requestContextPromise = this.requestFactory.v1GetSupportedFeatures(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1GetSupportedFeatures(rsp)));
             }));
     }
 
@@ -3886,137 +4044,6 @@ export class ObservableUsersApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1UsersLogin(rsp)));
-            }));
-    }
-
-}
-
-import { WebPlayerApiRequestFactory, WebPlayerApiResponseProcessor} from "../apis/WebPlayerApi";
-export class ObservableWebPlayerApi {
-    private requestFactory: WebPlayerApiRequestFactory;
-    private responseProcessor: WebPlayerApiResponseProcessor;
-    private configuration: Configuration;
-
-    public constructor(
-        configuration: Configuration,
-        requestFactory?: WebPlayerApiRequestFactory,
-        responseProcessor?: WebPlayerApiResponseProcessor
-    ) {
-        this.configuration = configuration;
-        this.requestFactory = requestFactory || new WebPlayerApiRequestFactory(configuration);
-        this.responseProcessor = responseProcessor || new WebPlayerApiResponseProcessor();
-    }
-
-    /**
-     * Retrieve the list of allowed domains for all Webplayer sessions
-     */
-    public v1WebPlayerAllowedDomains(_options?: Configuration): Observable<WebPlayerSession> {
-        const requestContextPromise = this.requestFactory.v1WebPlayerAllowedDomains(_options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1WebPlayerAllowedDomains(rsp)));
-            }));
-    }
-
-    /**
-     * Create a new Webplayer Session
-     * @param webPlayerCreateSessionRequest Request Data
-     */
-    public v1WebPlayerCreateSession(webPlayerCreateSessionRequest: WebPlayerCreateSessionRequest, _options?: Configuration): Observable<WebPlayerSession> {
-        const requestContextPromise = this.requestFactory.v1WebPlayerCreateSession(webPlayerCreateSessionRequest, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1WebPlayerCreateSession(rsp)));
-            }));
-    }
-
-    /**
-     * Tear down a Webplayer Session
-     * @param sessionId Webplayer Session identifier
-     */
-    public v1WebPlayerDestroySession(sessionId: string, _options?: Configuration): Observable<void> {
-        const requestContextPromise = this.requestFactory.v1WebPlayerDestroySession(sessionId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1WebPlayerDestroySession(rsp)));
-            }));
-    }
-
-    /**
-     * List all Webplayer sessions
-     */
-    public v1WebPlayerListSessions(_options?: Configuration): Observable<Array<WebPlayerSession>> {
-        const requestContextPromise = this.requestFactory.v1WebPlayerListSessions(_options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1WebPlayerListSessions(rsp)));
-            }));
-    }
-
-    /**
-     * Retrieve Webplayer Session Information
-     * @param sessionId Webplayer Session identifier
-     */
-    public v1WebPlayerSessionInfo(sessionId: string, _options?: Configuration): Observable<WebPlayerSession> {
-        const requestContextPromise = this.requestFactory.v1WebPlayerSessionInfo(sessionId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (let middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (let middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1WebPlayerSessionInfo(rsp)));
             }));
     }
 
