@@ -10,59 +10,40 @@
  * Do not edit the class manually.
  */
 
+import { Maintenance } from '../models/Maintenance';
 import { HttpFile } from '../http/http';
 
 /**
-* 
+* Denotes whether the server is undergoing maintenance
 */
-export class FileChanges {
+export class ConfigResponseMaintenance {
     /**
-    * Optional New path
+    * Maintenance message
     */
-    'path'?: string | null;
+    'message'?: string | null;
     /**
-    * Optional New Mode
+    * Maintenance header
     */
-    'mode'?: number | null;
-    /**
-    * Optional New Owner UID
-    */
-    'uid'?: number | null;
-    /**
-    * Optional New Group GID
-    */
-    'gid'?: number | null;
+    'header'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "path",
-            "baseName": "path",
+            "name": "message",
+            "baseName": "message",
             "type": "string",
             "format": ""
         },
         {
-            "name": "mode",
-            "baseName": "mode",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "uid",
-            "baseName": "uid",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "gid",
-            "baseName": "gid",
-            "type": "number",
+            "name": "header",
+            "baseName": "header",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return FileChanges.attributeTypeMap;
+        return ConfigResponseMaintenance.attributeTypeMap;
     }
 
     public constructor() {
