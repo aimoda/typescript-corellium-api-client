@@ -17,9 +17,12 @@ export * from '../models/ApiError';
 export * from '../models/ApiInternalConsistencyError';
 export * from '../models/ApiNotFoundError';
 export * from '../models/ApiToken';
+export * from '../models/AuthProvider';
 export * from '../models/Bit';
 export * from '../models/BtraceEnableOptions';
 export * from '../models/Button';
+export * from '../models/ConfigResponse';
+export * from '../models/ConfigResponseMaintenance';
 export * from '../models/CouponOptions';
 export * from '../models/CreateTeam';
 export * from '../models/CreatedBy';
@@ -57,6 +60,8 @@ export * from '../models/InviteRevokeParamsIds';
 export * from '../models/Kcrange';
 export * from '../models/KernelTask';
 export * from '../models/KernelThread';
+export * from '../models/Logging';
+export * from '../models/Maintenance';
 export * from '../models/MediaPlayBody';
 export * from '../models/Model';
 export * from '../models/ModelSoftware';
@@ -122,9 +127,12 @@ import { ApiError } from '../models/ApiError';
 import { ApiInternalConsistencyError } from '../models/ApiInternalConsistencyError';
 import { ApiNotFoundError } from '../models/ApiNotFoundError';
 import { ApiToken } from '../models/ApiToken';
+import { AuthProvider } from '../models/AuthProvider';
 import { Bit } from '../models/Bit';
 import { BtraceEnableOptions } from '../models/BtraceEnableOptions';
 import { Button } from '../models/Button';
+import { ConfigResponse } from '../models/ConfigResponse';
+import { ConfigResponseMaintenance } from '../models/ConfigResponseMaintenance';
 import { CouponOptions, CouponOptionsTypeEnum     } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
@@ -162,6 +170,8 @@ import { InviteRevokeParamsIds } from '../models/InviteRevokeParamsIds';
 import { Kcrange } from '../models/Kcrange';
 import { KernelTask } from '../models/KernelTask';
 import { KernelThread } from '../models/KernelThread';
+import { Logging } from '../models/Logging';
+import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
@@ -266,7 +276,10 @@ let typeMap: {[index: string]: any} = {
     "ApiInternalConsistencyError": ApiInternalConsistencyError,
     "ApiNotFoundError": ApiNotFoundError,
     "ApiToken": ApiToken,
+    "AuthProvider": AuthProvider,
     "BtraceEnableOptions": BtraceEnableOptions,
+    "ConfigResponse": ConfigResponse,
+    "ConfigResponseMaintenance": ConfigResponseMaintenance,
     "CouponOptions": CouponOptions,
     "CreateTeam": CreateTeam,
     "CreatedBy": CreatedBy,
@@ -302,6 +315,8 @@ let typeMap: {[index: string]: any} = {
     "Kcrange": Kcrange,
     "KernelTask": KernelTask,
     "KernelThread": KernelThread,
+    "Logging": Logging,
+    "Maintenance": Maintenance,
     "MediaPlayBody": MediaPlayBody,
     "Model": Model,
     "ModelSoftware": ModelSoftware,

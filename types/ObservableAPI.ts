@@ -21,9 +21,12 @@ import { ApiError } from '../models/ApiError';
 import { ApiInternalConsistencyError } from '../models/ApiInternalConsistencyError';
 import { ApiNotFoundError } from '../models/ApiNotFoundError';
 import { ApiToken } from '../models/ApiToken';
+import { AuthProvider } from '../models/AuthProvider';
 import { Bit } from '../models/Bit';
 import { BtraceEnableOptions } from '../models/BtraceEnableOptions';
 import { Button } from '../models/Button';
+import { ConfigResponse } from '../models/ConfigResponse';
+import { ConfigResponseMaintenance } from '../models/ConfigResponseMaintenance';
 import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
@@ -61,6 +64,8 @@ import { InviteRevokeParamsIds } from '../models/InviteRevokeParamsIds';
 import { Kcrange } from '../models/Kcrange';
 import { KernelTask } from '../models/KernelTask';
 import { KernelThread } from '../models/KernelThread';
+import { Logging } from '../models/Logging';
+import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
@@ -731,6 +736,46 @@ export class ObservableAuthenticationApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1AuthLogin(rsp)));
+            }));
+    }
+
+}
+
+import { ConfigApiRequestFactory, ConfigApiResponseProcessor} from "../apis/ConfigApi";
+export class ObservableConfigApi {
+    private requestFactory: ConfigApiRequestFactory;
+    private responseProcessor: ConfigApiResponseProcessor;
+    private configuration: Configuration;
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ConfigApiRequestFactory,
+        responseProcessor?: ConfigApiResponseProcessor
+    ) {
+        this.configuration = configuration;
+        this.requestFactory = requestFactory || new ConfigApiRequestFactory(configuration);
+        this.responseProcessor = responseProcessor || new ConfigApiResponseProcessor();
+    }
+
+    /**
+     * Get all configs
+     */
+    public v1GetConfig(_options?: Configuration): Observable<ConfigResponse> {
+        const requestContextPromise = this.requestFactory.v1GetConfig(_options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1GetConfig(rsp)));
             }));
     }
 
