@@ -15,44 +15,34 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class ProjectQuota {
+export class Logging {
     /**
-    * 
+    * Denotes whether it\'s in development
     */
-    'cores'?: number | null;
+    'development'?: boolean | null;
     /**
-    * 
+    * Denotes whether to throw warnings
     */
-    'instances'?: number | null;
-    /**
-    * 
-    */
-    'ram'?: number | null;
+    'throwWarnings'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "cores",
-            "baseName": "cores",
-            "type": "number",
+            "name": "development",
+            "baseName": "development",
+            "type": "boolean",
             "format": ""
         },
         {
-            "name": "instances",
-            "baseName": "instances",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "ram",
-            "baseName": "ram",
-            "type": "number",
+            "name": "throwWarnings",
+            "baseName": "throwWarnings",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProjectQuota.attributeTypeMap;
+        return Logging.attributeTypeMap;
     }
 
     public constructor() {

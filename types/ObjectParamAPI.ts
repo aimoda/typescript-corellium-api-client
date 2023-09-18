@@ -20,9 +20,12 @@ import { ApiError } from '../models/ApiError';
 import { ApiInternalConsistencyError } from '../models/ApiInternalConsistencyError';
 import { ApiNotFoundError } from '../models/ApiNotFoundError';
 import { ApiToken } from '../models/ApiToken';
+import { AuthProvider } from '../models/AuthProvider';
 import { Bit } from '../models/Bit';
 import { BtraceEnableOptions } from '../models/BtraceEnableOptions';
 import { Button } from '../models/Button';
+import { ConfigResponse } from '../models/ConfigResponse';
+import { ConfigResponseMaintenance } from '../models/ConfigResponseMaintenance';
 import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
@@ -60,6 +63,8 @@ import { InviteRevokeParamsIds } from '../models/InviteRevokeParamsIds';
 import { Kcrange } from '../models/Kcrange';
 import { KernelTask } from '../models/KernelTask';
 import { KernelThread } from '../models/KernelThread';
+import { Logging } from '../models/Logging';
+import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
@@ -649,6 +654,29 @@ export class ObjectAuthenticationApi {
      */
     public v1AuthLogin(param: AuthenticationApiV1AuthLoginRequest, options?: Configuration): Promise<Token> {
         return this.api.v1AuthLogin(param.body,  options).toPromise();
+    }
+
+}
+
+import { ObservableConfigApi } from "./ObservableAPI";
+import { ConfigApiRequestFactory, ConfigApiResponseProcessor} from "../apis/ConfigApi";
+
+export interface ConfigApiV1GetConfigRequest {
+}
+
+export class ObjectConfigApi {
+    private api: ObservableConfigApi
+
+    public constructor(configuration: Configuration, requestFactory?: ConfigApiRequestFactory, responseProcessor?: ConfigApiResponseProcessor) {
+        this.api = new ObservableConfigApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get all configs
+     * @param param the request object
+     */
+    public v1GetConfig(param: ConfigApiV1GetConfigRequest = {}, options?: Configuration): Promise<ConfigResponse> {
+        return this.api.v1GetConfig( options).toPromise();
     }
 
 }

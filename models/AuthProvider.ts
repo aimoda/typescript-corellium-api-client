@@ -15,75 +15,75 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class Hook {
+export class AuthProvider {
     /**
-    * Identifier
+    * Provider name for a given provider type
+    */
+    'name'?: string | null;
+    /**
+    * The identifier for the provider
     */
     'identifier'?: string | null;
     /**
-    * Label
+    * Provider type
+    */
+    'providerType'?: string | null;
+    /**
+    * Denotes whether it\'s the default
+    */
+    '_default'?: boolean | null;
+    /**
+    * Provider label
     */
     'label'?: string | null;
     /**
-    * Address
-    */
-    'address'?: string | null;
-    /**
-    * Patch
-    */
-    'patch'?: string | null;
-    /**
-    * Patch Type
-    */
-    'patchType'?: HookPatchTypeEnum | null;
-    /**
-    * If true, instances can call required hooks
+    * Denotes whether they\'re enabled or not
     */
     'enabled'?: boolean | null;
     /**
-    * Created Date in ISO-8601 format e.g. 2022-05-06T02:39:23.000Z
+    * URL for provider auth
     */
-    'createdAt'?: string | null;
+    'authorizationUrl'?: string | null;
     /**
-    * Updated Date in ISO-8601 format e.g. 2022-05-06T02:39:23.000Z
+    * The identifier for the provider
     */
-    'updatedAt'?: string | null;
+    'id'?: string | null;
     /**
-    * Instance Id
+    * Auth provider
     */
-    'instanceId'?: string | null;
+    'provider'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "name",
+            "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "identifier",
             "baseName": "identifier",
             "type": "string",
-            "format": "uuid"
+            "format": ""
+        },
+        {
+            "name": "providerType",
+            "baseName": "providerType",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "_default",
+            "baseName": "default",
+            "type": "boolean",
+            "format": ""
         },
         {
             "name": "label",
             "baseName": "label",
             "type": "string",
-            "format": ""
-        },
-        {
-            "name": "address",
-            "baseName": "address",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "patch",
-            "baseName": "patch",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "patchType",
-            "baseName": "patchType",
-            "type": "HookPatchTypeEnum",
             "format": ""
         },
         {
@@ -93,32 +93,29 @@ export class Hook {
             "format": ""
         },
         {
-            "name": "createdAt",
-            "baseName": "createdAt",
+            "name": "authorizationUrl",
+            "baseName": "authorizationUrl",
             "type": "string",
             "format": ""
         },
         {
-            "name": "updatedAt",
-            "baseName": "updatedAt",
+            "name": "id",
+            "baseName": "id",
             "type": "string",
             "format": ""
         },
         {
-            "name": "instanceId",
-            "baseName": "instanceId",
+            "name": "provider",
+            "baseName": "provider",
             "type": "string",
-            "format": "uuid"
+            "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return Hook.attributeTypeMap;
+        return AuthProvider.attributeTypeMap;
     }
 
     public constructor() {
     }
 }
-
-
-export type HookPatchTypeEnum = "csmfcc" | "csmfvm" ;
 
