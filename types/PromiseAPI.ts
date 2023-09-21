@@ -20,9 +20,12 @@ import { ApiError } from '../models/ApiError';
 import { ApiInternalConsistencyError } from '../models/ApiInternalConsistencyError';
 import { ApiNotFoundError } from '../models/ApiNotFoundError';
 import { ApiToken } from '../models/ApiToken';
+import { AuthProvider } from '../models/AuthProvider';
 import { Bit } from '../models/Bit';
 import { BtraceEnableOptions } from '../models/BtraceEnableOptions';
 import { Button } from '../models/Button';
+import { ConfigResponse } from '../models/ConfigResponse';
+import { ConfigResponseMaintenance } from '../models/ConfigResponseMaintenance';
 import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
@@ -60,6 +63,8 @@ import { InviteRevokeParamsIds } from '../models/InviteRevokeParamsIds';
 import { Kcrange } from '../models/Kcrange';
 import { KernelTask } from '../models/KernelTask';
 import { KernelThread } from '../models/KernelThread';
+import { Logging } from '../models/Logging';
+import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
@@ -378,6 +383,33 @@ export class PromiseAuthenticationApi {
      */
     public v1AuthLogin(body: any, _options?: Configuration): Promise<Token> {
         const result = this.api.v1AuthLogin(body, _options);
+        return result.toPromise();
+    }
+
+
+}
+
+
+
+import { ObservableConfigApi } from './ObservableAPI';
+
+import { ConfigApiRequestFactory, ConfigApiResponseProcessor} from "../apis/ConfigApi";
+export class PromiseConfigApi {
+    private api: ObservableConfigApi
+
+    public constructor(
+        configuration: Configuration,
+        requestFactory?: ConfigApiRequestFactory,
+        responseProcessor?: ConfigApiResponseProcessor
+    ) {
+        this.api = new ObservableConfigApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * Get all configs
+     */
+    public v1GetConfig(_options?: Configuration): Promise<ConfigResponse> {
+        const result = this.api.v1GetConfig(_options);
         return result.toPromise();
     }
 
