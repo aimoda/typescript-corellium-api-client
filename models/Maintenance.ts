@@ -10,37 +10,39 @@
  * Do not edit the class manually.
  */
 
-import { TrialExtension } from '../models/TrialExtension';
 import { HttpFile } from '../http/http';
 
 /**
 * 
 */
-export class DomainOptions {
+export class Maintenance {
     /**
-    * if true, totp is required
+    * Maintenance message
     */
-    'totpRequired'?: boolean | null;
-    'trialExtension'?: TrialExtension;
+    'message'?: string | null;
+    /**
+    * Maintenance header
+    */
+    'header'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "totpRequired",
-            "baseName": "totpRequired",
-            "type": "boolean",
+            "name": "message",
+            "baseName": "message",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "trialExtension",
-            "baseName": "trialExtension",
-            "type": "TrialExtension",
+            "name": "header",
+            "baseName": "header",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return DomainOptions.attributeTypeMap;
+        return Maintenance.attributeTypeMap;
     }
 
     public constructor() {
