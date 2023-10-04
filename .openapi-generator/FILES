@@ -1,5 +1,6 @@
 AgentApi.md
 AuthenticationApi.md
+ConfigApi.md
 CoreTraceApi.md
 DomainAuthProviderApi.md
 HyperTraceApi.md
@@ -19,6 +20,7 @@ TrialRequestsApi.md
 UsersApi.md
 apis/AgentApi.ts
 apis/AuthenticationApi.ts
+apis/ConfigApi.ts
 apis/CoreTraceApi.ts
 apis/DomainAuthProviderApi.ts
 apis/HyperTraceApi.ts
@@ -63,9 +65,12 @@ models/ApiError.ts
 models/ApiInternalConsistencyError.ts
 models/ApiNotFoundError.ts
 models/ApiToken.ts
+models/AuthProvider.ts
 models/Bit.ts
 models/BtraceEnableOptions.ts
 models/Button.ts
+models/ConfigResponse.ts
+models/ConfigResponseMaintenance.ts
 models/CouponOptions.ts
 models/CreateTeam.ts
 models/CreatedBy.ts
@@ -103,6 +108,8 @@ models/InviteRevokeParamsIds.ts
 models/Kcrange.ts
 models/KernelTask.ts
 models/KernelThread.ts
+models/Logging.ts
+models/Maintenance.ts
 models/MediaPlayBody.ts
 models/Model.ts
 models/ModelSoftware.ts
