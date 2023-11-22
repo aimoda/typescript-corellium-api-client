@@ -15,24 +15,24 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class GrantTrialRequestResponse {
+export class AgentSystemSetHostnameBody {
     /**
-    * Trial request code
+    * 
     */
-    'code'?: string | null;
+    'hostname': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "code",
-            "baseName": "code",
+            "name": "hostname",
+            "baseName": "hostname",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GrantTrialRequestResponse.attributeTypeMap;
+        return AgentSystemSetHostnameBody.attributeTypeMap;
     }
 
     public constructor() {

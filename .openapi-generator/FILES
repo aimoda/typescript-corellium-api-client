@@ -58,6 +58,7 @@ models/AgentInstallBody.ts
 models/AgentProfilesReturn.ts
 models/AgentSystemAdbAuth.ts
 models/AgentSystemGetPropBody.ts
+models/AgentSystemSetHostnameBody.ts
 models/AgentValueReturn.ts
 models/AgreedAck.ts
 models/ApiConflictError.ts

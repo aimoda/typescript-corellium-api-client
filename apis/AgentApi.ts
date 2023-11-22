@@ -16,6 +16,7 @@ import { AgentInstallBody } from '../models/AgentInstallBody';
 import { AgentProfilesReturn } from '../models/AgentProfilesReturn';
 import { AgentSystemAdbAuth } from '../models/AgentSystemAdbAuth';
 import { AgentSystemGetPropBody } from '../models/AgentSystemGetPropBody';
+import { AgentSystemSetHostnameBody } from '../models/AgentSystemSetHostnameBody';
 import { AgentValueReturn } from '../models/AgentValueReturn';
 import { FileChanges } from '../models/FileChanges';
 
@@ -890,6 +891,61 @@ export class AgentApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Set Hostname of instance
+     * @param instanceId Instance ID - uuid
+     * @param agentSystemSetHostnameBody New hostname
+     */
+    public async v1AgentSystemSetHostname(instanceId: string, agentSystemSetHostnameBody: AgentSystemSetHostnameBody, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'instanceId' is not null or undefined
+        if (instanceId === null || instanceId === undefined) {
+            throw new RequiredError("AgentApi", "v1AgentSystemSetHostname", "instanceId");
+        }
+
+
+        // verify required parameter 'agentSystemSetHostnameBody' is not null or undefined
+        if (agentSystemSetHostnameBody === null || agentSystemSetHostnameBody === undefined) {
+            throw new RequiredError("AgentApi", "v1AgentSystemSetHostname", "agentSystemSetHostnameBody");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/instances/{instanceId}/agent/v1/system/setHostname'
+            .replace('{' + 'instanceId' + '}', encodeURIComponent(String(instanceId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(agentSystemSetHostnameBody, "AgentSystemSetHostnameBody", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["BearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Instruct VM to halt
      * @param instanceId Instance ID - uuid
      */
@@ -1742,6 +1798,38 @@ export class AgentApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async v1AgentSystemSetAdbAuth(response: ResponseContext): Promise<void > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("204", response.httpStatusCode)) {
+            return;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: AgentError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "AgentError", ""
+            ) as AgentError;
+            throw new ApiException<AgentError>(response.httpStatusCode, "Agent Error", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: void = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "void", ""
+            ) as void;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v1AgentSystemSetHostname
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v1AgentSystemSetHostname(response: ResponseContext): Promise<void > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("204", response.httpStatusCode)) {
             return;
