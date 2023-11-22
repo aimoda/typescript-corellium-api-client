@@ -13,6 +13,7 @@ import { AgentInstallBody } from '../models/AgentInstallBody';
 import { AgentProfilesReturn } from '../models/AgentProfilesReturn';
 import { AgentSystemAdbAuth } from '../models/AgentSystemAdbAuth';
 import { AgentSystemGetPropBody } from '../models/AgentSystemGetPropBody';
+import { AgentSystemSetHostnameBody } from '../models/AgentSystemSetHostnameBody';
 import { AgentValueReturn } from '../models/AgentValueReturn';
 import { AgreedAck } from '../models/AgreedAck';
 import { ApiConflictError } from '../models/ApiConflictError';
@@ -357,6 +358,21 @@ export interface AgentApiV1AgentSystemSetAdbAuthRequest {
     agentSystemAdbAuth: AgentSystemAdbAuth
 }
 
+export interface AgentApiV1AgentSystemSetHostnameRequest {
+    /**
+     * Instance ID - uuid
+     * @type string
+     * @memberof AgentApiv1AgentSystemSetHostname
+     */
+    instanceId: string
+    /**
+     * New hostname
+     * @type AgentSystemSetHostnameBody
+     * @memberof AgentApiv1AgentSystemSetHostname
+     */
+    agentSystemSetHostnameBody: AgentSystemSetHostnameBody
+}
+
 export interface AgentApiV1AgentSystemShutdownRequest {
     /**
      * Instance ID - uuid
@@ -585,6 +601,14 @@ export class ObjectAgentApi {
      */
     public v1AgentSystemSetAdbAuth(param: AgentApiV1AgentSystemSetAdbAuthRequest, options?: Configuration): Promise<void> {
         return this.api.v1AgentSystemSetAdbAuth(param.instanceId, param.agentSystemAdbAuth,  options).toPromise();
+    }
+
+    /**
+     * Set Hostname of instance
+     * @param param the request object
+     */
+    public v1AgentSystemSetHostname(param: AgentApiV1AgentSystemSetHostnameRequest, options?: Configuration): Promise<void> {
+        return this.api.v1AgentSystemSetHostname(param.instanceId, param.agentSystemSetHostnameBody,  options).toPromise();
     }
 
     /**

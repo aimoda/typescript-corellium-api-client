@@ -23,6 +23,7 @@ Method | HTTP request | Description
 [**v1AgentSystemInstallOpenGApps**](AgentApi.md#v1AgentSystemInstallOpenGApps) | **POST** /v1/instances/{instanceId}/agent/v1/system/install-opengapps | Install OpenGApps (AOSP only)
 [**v1AgentSystemLock**](AgentApi.md#v1AgentSystemLock) | **POST** /v1/instances/{instanceId}/agent/v1/system/lock | Lock Device (iOS Only)
 [**v1AgentSystemSetAdbAuth**](AgentApi.md#v1AgentSystemSetAdbAuth) | **PUT** /v1/instances/{instanceId}/agent/v1/system/adbauth | Set ADB Auth Setting (AOSP only)
+[**v1AgentSystemSetHostname**](AgentApi.md#v1AgentSystemSetHostname) | **POST** /v1/instances/{instanceId}/agent/v1/system/setHostname | Set Hostname of instance
 [**v1AgentSystemShutdown**](AgentApi.md#v1AgentSystemShutdown) | **POST** /v1/instances/{instanceId}/agent/v1/system/shutdown | Instruct VM to halt
 [**v1AgentSystemUnlock**](AgentApi.md#v1AgentSystemUnlock) | **POST** /v1/instances/{instanceId}/agent/v1/system/unlock | Unlock Device (iOS Only)
 [**v1AgentUninstallApp**](AgentApi.md#v1AgentUninstallApp) | **POST** /v1/instances/{instanceId}/agent/v1/app/apps/{bundleId}/uninstall | Uninstall an App
@@ -1081,6 +1082,65 @@ apiInstance.v1AgentSystemSetAdbAuth(body).then((data:any) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **agentSystemAdbAuth** | **AgentSystemAdbAuth**| Desired ADB Auth Setting |
+ **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
+
+
+### Return type
+
+**void**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Accepted |  -  |
+**400** | Agent Error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1AgentSystemSetHostname**
+> void v1AgentSystemSetHostname(agentSystemSetHostnameBody)
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .AgentApi(configuration);
+
+let body:.AgentApiV1AgentSystemSetHostnameRequest = {
+  // string | Instance ID - uuid
+  instanceId: "instanceId_example",
+  // AgentSystemSetHostnameBody | New hostname
+  agentSystemSetHostnameBody: {
+    hostname: "hostname_example",
+  },
+};
+
+apiInstance.v1AgentSystemSetHostname(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **agentSystemSetHostnameBody** | **AgentSystemSetHostnameBody**| New hostname |
  **instanceId** | [**string**] | Instance ID - uuid | defaults to undefined
 
 

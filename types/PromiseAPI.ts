@@ -13,6 +13,7 @@ import { AgentInstallBody } from '../models/AgentInstallBody';
 import { AgentProfilesReturn } from '../models/AgentProfilesReturn';
 import { AgentSystemAdbAuth } from '../models/AgentSystemAdbAuth';
 import { AgentSystemGetPropBody } from '../models/AgentSystemGetPropBody';
+import { AgentSystemSetHostnameBody } from '../models/AgentSystemSetHostnameBody';
 import { AgentValueReturn } from '../models/AgentValueReturn';
 import { AgreedAck } from '../models/AgreedAck';
 import { ApiConflictError } from '../models/ApiConflictError';
@@ -306,6 +307,16 @@ export class PromiseAgentApi {
      */
     public v1AgentSystemSetAdbAuth(instanceId: string, agentSystemAdbAuth: AgentSystemAdbAuth, _options?: Configuration): Promise<void> {
         const result = this.api.v1AgentSystemSetAdbAuth(instanceId, agentSystemAdbAuth, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Set Hostname of instance
+     * @param instanceId Instance ID - uuid
+     * @param agentSystemSetHostnameBody New hostname
+     */
+    public v1AgentSystemSetHostname(instanceId: string, agentSystemSetHostnameBody: AgentSystemSetHostnameBody, _options?: Configuration): Promise<void> {
+        const result = this.api.v1AgentSystemSetHostname(instanceId, agentSystemSetHostnameBody, _options);
         return result.toPromise();
     }
 

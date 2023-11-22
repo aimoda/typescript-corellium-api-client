@@ -14,6 +14,7 @@ import { AgentInstallBody } from '../models/AgentInstallBody';
 import { AgentProfilesReturn } from '../models/AgentProfilesReturn';
 import { AgentSystemAdbAuth } from '../models/AgentSystemAdbAuth';
 import { AgentSystemGetPropBody } from '../models/AgentSystemGetPropBody';
+import { AgentSystemSetHostnameBody } from '../models/AgentSystemSetHostnameBody';
 import { AgentValueReturn } from '../models/AgentValueReturn';
 import { AgreedAck } from '../models/AgreedAck';
 import { ApiConflictError } from '../models/ApiConflictError';
@@ -576,6 +577,30 @@ export class ObservableAgentApi {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
                 return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1AgentSystemSetAdbAuth(rsp)));
+            }));
+    }
+
+    /**
+     * Set Hostname of instance
+     * @param instanceId Instance ID - uuid
+     * @param agentSystemSetHostnameBody New hostname
+     */
+    public v1AgentSystemSetHostname(instanceId: string, agentSystemSetHostnameBody: AgentSystemSetHostnameBody, _options?: Configuration): Observable<void> {
+        const requestContextPromise = this.requestFactory.v1AgentSystemSetHostname(instanceId, agentSystemSetHostnameBody, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (let middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (let middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.v1AgentSystemSetHostname(rsp)));
             }));
     }
 

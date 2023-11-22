@@ -10,6 +10,7 @@ export * from '../models/AgentInstallBody';
 export * from '../models/AgentProfilesReturn';
 export * from '../models/AgentSystemAdbAuth';
 export * from '../models/AgentSystemGetPropBody';
+export * from '../models/AgentSystemSetHostnameBody';
 export * from '../models/AgentValueReturn';
 export * from '../models/AgreedAck';
 export * from '../models/ApiConflictError';
@@ -120,6 +121,7 @@ import { AgentInstallBody } from '../models/AgentInstallBody';
 import { AgentProfilesReturn } from '../models/AgentProfilesReturn';
 import { AgentSystemAdbAuth } from '../models/AgentSystemAdbAuth';
 import { AgentSystemGetPropBody } from '../models/AgentSystemGetPropBody';
+import { AgentSystemSetHostnameBody } from '../models/AgentSystemSetHostnameBody';
 import { AgentValueReturn } from '../models/AgentValueReturn';
 import { AgreedAck } from '../models/AgreedAck';
 import { ApiConflictError , ApiConflictErrorErrorIDEnum    } from '../models/ApiConflictError';
@@ -269,6 +271,7 @@ let typeMap: {[index: string]: any} = {
     "AgentProfilesReturn": AgentProfilesReturn,
     "AgentSystemAdbAuth": AgentSystemAdbAuth,
     "AgentSystemGetPropBody": AgentSystemGetPropBody,
+    "AgentSystemSetHostnameBody": AgentSystemSetHostnameBody,
     "AgentValueReturn": AgentValueReturn,
     "AgreedAck": AgreedAck,
     "ApiConflictError": ApiConflictError,
