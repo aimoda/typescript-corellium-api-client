@@ -13,56 +13,56 @@
 import { HttpFile } from '../http/http';
 
 /**
-* Represents a Proxy configuration object.
+* 
 */
-export class ProxyConfig {
+export class SnapshotInvitationTypes {
     /**
-    * The device port to use for proxying.
+    * Indicates if public link access is enabled
     */
-    'devicePort'?: number | null;
+    'publicLink'?: boolean | null;
     /**
-    * If `true`, the first available port will be used if `devicePort` is not available.
+    * Indicates if domain-restricted link access is enabled
     */
-    'firstAvailable'?: boolean | null;
+    'domainRestrictedLink'?: boolean | null;
     /**
-    * If `true`, the proxy will be exposed to the external interface.
+    * Indicates if password-protected public link access is enabled
     */
-    'expose'?: boolean | null;
+    'passwordPublicLink'?: boolean | null;
     /**
-    * The router port to use for proxying.
+    * Indicates if email invite access is enabled
     */
-    'routerPort'?: number | null;
+    'emailInvite'?: boolean | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "devicePort",
-            "baseName": "devicePort",
-            "type": "number",
-            "format": ""
-        },
-        {
-            "name": "firstAvailable",
-            "baseName": "firstAvailable",
+            "name": "publicLink",
+            "baseName": "publicLink",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "expose",
-            "baseName": "expose",
+            "name": "domainRestrictedLink",
+            "baseName": "domainRestrictedLink",
             "type": "boolean",
             "format": ""
         },
         {
-            "name": "routerPort",
-            "baseName": "routerPort",
-            "type": "number",
+            "name": "passwordPublicLink",
+            "baseName": "passwordPublicLink",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "emailInvite",
+            "baseName": "emailInvite",
+            "type": "boolean",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return ProxyConfig.attributeTypeMap;
+        return SnapshotInvitationTypes.attributeTypeMap;
     }
 
     public constructor() {

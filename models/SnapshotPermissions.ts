@@ -10,49 +10,37 @@
  * Do not edit the class manually.
  */
 
+import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
 import { HttpFile } from '../http/http';
 
 /**
 * 
 */
-export class KernelThread {
+export class SnapshotPermissions {
     /**
-    * Kernel Thread ID
+    * Indicates if snapshot permissions are enabled
     */
-    'kernelId'?: string | null;
-    /**
-    * Task ID
-    */
-    'tid'?: number | null;
-    /**
-    * Array of stack addresses
-    */
-    'stack'?: Array<string> | null;
+    'enabled'?: boolean | null;
+    'invitationTypes'?: SnapshotInvitationTypes;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "kernelId",
-            "baseName": "kernelId",
-            "type": "string",
-            "format": "uint64_t"
-        },
-        {
-            "name": "tid",
-            "baseName": "tid",
-            "type": "number",
+            "name": "enabled",
+            "baseName": "enabled",
+            "type": "boolean",
             "format": ""
         },
         {
-            "name": "stack",
-            "baseName": "stack",
-            "type": "Array<string>",
+            "name": "invitationTypes",
+            "baseName": "invitationTypes",
+            "type": "SnapshotInvitationTypes",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return KernelThread.attributeTypeMap;
+        return SnapshotPermissions.attributeTypeMap;
     }
 
     public constructor() {
