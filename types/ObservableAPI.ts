@@ -89,6 +89,8 @@ import { Role } from '../models/Role';
 import { RotateBody } from '../models/RotateBody';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
+import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
+import { SnapshotPermissions } from '../models/SnapshotPermissions';
 import { SnapshotStatus } from '../models/SnapshotStatus';
 import { SubscriberInvite } from '../models/SubscriberInvite';
 import { Team } from '../models/Team';

@@ -85,6 +85,8 @@ export * from '../models/Role';
 export * from '../models/RotateBody';
 export * from '../models/Snapshot';
 export * from '../models/SnapshotCreationOptions';
+export * from '../models/SnapshotInvitationTypes';
+export * from '../models/SnapshotPermissions';
 export * from '../models/SnapshotStatus';
 export * from '../models/SubscriberInvite';
 export * from '../models/Team';
@@ -196,6 +198,8 @@ import { Role, RoleRoleEnum     } from '../models/Role';
 import { RotateBody, RotateBodyOrientationEnum   } from '../models/RotateBody';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
+import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
+import { SnapshotPermissions } from '../models/SnapshotPermissions';
 import { SnapshotStatus } from '../models/SnapshotStatus';
 import { SubscriberInvite } from '../models/SubscriberInvite';
 import { Team } from '../models/Team';
@@ -342,6 +346,8 @@ let typeMap: {[index: string]: any} = {
     "RotateBody": RotateBody,
     "Snapshot": Snapshot,
     "SnapshotCreationOptions": SnapshotCreationOptions,
+    "SnapshotInvitationTypes": SnapshotInvitationTypes,
+    "SnapshotPermissions": SnapshotPermissions,
     "SnapshotStatus": SnapshotStatus,
     "SubscriberInvite": SubscriberInvite,
     "Team": Team,

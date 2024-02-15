@@ -134,6 +134,8 @@ models/Role.ts
 models/RotateBody.ts
 models/Snapshot.ts
 models/SnapshotCreationOptions.ts
+models/SnapshotInvitationTypes.ts
+models/SnapshotPermissions.ts
 models/SnapshotStatus.ts
 models/SubscriberInvite.ts
 models/Team.ts
