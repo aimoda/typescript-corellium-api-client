@@ -31,6 +31,7 @@ import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DeleteSnapshotPermissionsRequestPayload } from '../models/DeleteSnapshotPermissionsRequestPayload';
 import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
 import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
@@ -67,6 +68,7 @@ import { KernelThread } from '../models/KernelThread';
 import { Logging } from '../models/Logging';
 import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
+import { MeteredSubscriptionUsage } from '../models/MeteredSubscriptionUsage';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
@@ -76,6 +78,7 @@ import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
 import { PeripheralsData } from '../models/PeripheralsData';
 import { Plan } from '../models/Plan';
+import { PostSnapshotPermissionsRequestPayload } from '../models/PostSnapshotPermissionsRequestPayload';
 import { Project } from '../models/Project';
 import { ProjectKey } from '../models/ProjectKey';
 import { ProjectQuota } from '../models/ProjectQuota';
@@ -88,9 +91,10 @@ import { Role } from '../models/Role';
 import { RotateBody } from '../models/RotateBody';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
-import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
 import { SnapshotPermissions } from '../models/SnapshotPermissions';
+import { SnapshotSharing } from '../models/SnapshotSharing';
 import { SnapshotStatus } from '../models/SnapshotStatus';
+import { SnapshotUser } from '../models/SnapshotUser';
 import { SubscriberInvite } from '../models/SubscriberInvite';
 import { Team } from '../models/Team';
 import { TeamCreate } from '../models/TeamCreate';
@@ -2727,6 +2731,7 @@ export class ObjectProjectsApi {
     }
 
     /**
+     * A Project VPN allows connection _into_ virtual devices in the project (e.g., connecting a researcher\'s computer as a VPN client to a virtual device within the project). If a Project VPN has been defined, this will return the configuration.
      * Get Project VPN Configuration
      * @param param the request object
      */
@@ -2954,6 +2959,21 @@ export interface SnapshotsApiV1DeleteSnapshotRequest {
     snapshotId: string
 }
 
+export interface SnapshotsApiV1DeleteSnapshotPermissionsRequest {
+    /**
+     * Snapshot ID - uuid
+     * @type string
+     * @memberof SnapshotsApiv1DeleteSnapshotPermissions
+     */
+    snapshotId: string
+    /**
+     * 
+     * @type DeleteSnapshotPermissionsRequestPayload
+     * @memberof SnapshotsApiv1DeleteSnapshotPermissions
+     */
+    deleteSnapshotPermissionsRequestPayload: DeleteSnapshotPermissionsRequestPayload
+}
+
 export interface SnapshotsApiV1GetInstanceSnapshotRequest {
     /**
      * Instance ID - uuid
@@ -2976,6 +2996,9 @@ export interface SnapshotsApiV1GetInstanceSnapshotsRequest {
      * @memberof SnapshotsApiv1GetInstanceSnapshots
      */
     instanceId: string
+}
+
+export interface SnapshotsApiV1GetSharedSnapshotsRequest {
 }
 
 export interface SnapshotsApiV1GetSnapshotRequest {
@@ -3021,6 +3044,21 @@ export interface SnapshotsApiV1RestoreInstanceSnapshotRequest {
      * @memberof SnapshotsApiv1RestoreInstanceSnapshot
      */
     snapshotId: string
+}
+
+export interface SnapshotsApiV1SetSnapshotPermissionsRequest {
+    /**
+     * Snapshot ID - uuid
+     * @type string
+     * @memberof SnapshotsApiv1SetSnapshotPermissions
+     */
+    snapshotId: string
+    /**
+     * 
+     * @type PostSnapshotPermissionsRequestPayload
+     * @memberof SnapshotsApiv1SetSnapshotPermissions
+     */
+    postSnapshotPermissionsRequestPayload: PostSnapshotPermissionsRequestPayload
 }
 
 export interface SnapshotsApiV1SnapshotRenameRequest {
@@ -3070,6 +3108,14 @@ export class ObjectSnapshotsApi {
     }
 
     /**
+     * Remove a user from the list of users who have access to the snapshot
+     * @param param the request object
+     */
+    public v1DeleteSnapshotPermissions(param: SnapshotsApiV1DeleteSnapshotPermissionsRequest, options?: Configuration): Promise<Snapshot> {
+        return this.api.v1DeleteSnapshotPermissions(param.snapshotId, param.deleteSnapshotPermissionsRequestPayload,  options).toPromise();
+    }
+
+    /**
      * Get Instance Snapshot
      * @param param the request object
      */
@@ -3083,6 +3129,14 @@ export class ObjectSnapshotsApi {
      */
     public v1GetInstanceSnapshots(param: SnapshotsApiV1GetInstanceSnapshotsRequest, options?: Configuration): Promise<Array<Snapshot>> {
         return this.api.v1GetInstanceSnapshots(param.instanceId,  options).toPromise();
+    }
+
+    /**
+     * Fetch snapshots shared with and shared by the requesting user
+     * @param param the request object
+     */
+    public v1GetSharedSnapshots(param: SnapshotsApiV1GetSharedSnapshotsRequest = {}, options?: Configuration): Promise<Snapshot> {
+        return this.api.v1GetSharedSnapshots( options).toPromise();
     }
 
     /**
@@ -3107,6 +3161,14 @@ export class ObjectSnapshotsApi {
      */
     public v1RestoreInstanceSnapshot(param: SnapshotsApiV1RestoreInstanceSnapshotRequest, options?: Configuration): Promise<void> {
         return this.api.v1RestoreInstanceSnapshot(param.instanceId, param.snapshotId,  options).toPromise();
+    }
+
+    /**
+     * Add a user to the list of users who have access to the snapshot
+     * @param param the request object
+     */
+    public v1SetSnapshotPermissions(param: SnapshotsApiV1SetSnapshotPermissionsRequest, options?: Configuration): Promise<Snapshot> {
+        return this.api.v1SetSnapshotPermissions(param.snapshotId, param.postSnapshotPermissionsRequestPayload,  options).toPromise();
     }
 
     /**

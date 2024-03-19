@@ -381,6 +381,7 @@ Name | Type | Description  | Notes
 # **v1GetProjectVpnConfig**
 > string v1GetProjectVpnConfig()
 
+A Project VPN allows connection _into_ virtual devices in the project (e.g., connecting a researcher\'s computer as a VPN client to a virtual device within the project). If a Project VPN has been defined, this will return the configuration.
 
 ### Example
 
@@ -431,6 +432,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OpenVPN Configuration |  -  |
+**400** | User Error |  -  |
 **403** | Forbidden |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)

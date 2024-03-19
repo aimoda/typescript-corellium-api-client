@@ -31,6 +31,7 @@ import { CouponOptions } from '../models/CouponOptions';
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DeleteSnapshotPermissionsRequestPayload } from '../models/DeleteSnapshotPermissionsRequestPayload';
 import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
 import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
@@ -67,6 +68,7 @@ import { KernelThread } from '../models/KernelThread';
 import { Logging } from '../models/Logging';
 import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
+import { MeteredSubscriptionUsage } from '../models/MeteredSubscriptionUsage';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
@@ -76,6 +78,7 @@ import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions } from '../models/PatchInstanceOptions';
 import { PeripheralsData } from '../models/PeripheralsData';
 import { Plan } from '../models/Plan';
+import { PostSnapshotPermissionsRequestPayload } from '../models/PostSnapshotPermissionsRequestPayload';
 import { Project } from '../models/Project';
 import { ProjectKey } from '../models/ProjectKey';
 import { ProjectQuota } from '../models/ProjectQuota';
@@ -88,9 +91,10 @@ import { Role } from '../models/Role';
 import { RotateBody } from '../models/RotateBody';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
-import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
 import { SnapshotPermissions } from '../models/SnapshotPermissions';
+import { SnapshotSharing } from '../models/SnapshotSharing';
 import { SnapshotStatus } from '../models/SnapshotStatus';
+import { SnapshotUser } from '../models/SnapshotUser';
 import { SubscriberInvite } from '../models/SubscriberInvite';
 import { Team } from '../models/Team';
 import { TeamCreate } from '../models/TeamCreate';
@@ -1492,6 +1496,7 @@ export class PromiseProjectsApi {
     }
 
     /**
+     * A Project VPN allows connection _into_ virtual devices in the project (e.g., connecting a researcher\'s computer as a VPN client to a virtual device within the project). If a Project VPN has been defined, this will return the configuration.
      * Get Project VPN Configuration
      * @param projectId Project ID - uuid
      * @param format VPN Config format
@@ -1666,6 +1671,16 @@ export class PromiseSnapshotsApi {
     }
 
     /**
+     * Remove a user from the list of users who have access to the snapshot
+     * @param snapshotId Snapshot ID - uuid
+     * @param deleteSnapshotPermissionsRequestPayload 
+     */
+    public v1DeleteSnapshotPermissions(snapshotId: string, deleteSnapshotPermissionsRequestPayload: DeleteSnapshotPermissionsRequestPayload, _options?: Configuration): Promise<Snapshot> {
+        const result = this.api.v1DeleteSnapshotPermissions(snapshotId, deleteSnapshotPermissionsRequestPayload, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Get Instance Snapshot
      * @param instanceId Instance ID - uuid
      * @param snapshotId Snapshot ID - uuid
@@ -1681,6 +1696,14 @@ export class PromiseSnapshotsApi {
      */
     public v1GetInstanceSnapshots(instanceId: string, _options?: Configuration): Promise<Array<Snapshot>> {
         const result = this.api.v1GetInstanceSnapshots(instanceId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Fetch snapshots shared with and shared by the requesting user
+     */
+    public v1GetSharedSnapshots(_options?: Configuration): Promise<Snapshot> {
+        const result = this.api.v1GetSharedSnapshots(_options);
         return result.toPromise();
     }
 
@@ -1711,6 +1734,16 @@ export class PromiseSnapshotsApi {
      */
     public v1RestoreInstanceSnapshot(instanceId: string, snapshotId: string, _options?: Configuration): Promise<void> {
         const result = this.api.v1RestoreInstanceSnapshot(instanceId, snapshotId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Add a user to the list of users who have access to the snapshot
+     * @param snapshotId Snapshot ID - uuid
+     * @param postSnapshotPermissionsRequestPayload 
+     */
+    public v1SetSnapshotPermissions(snapshotId: string, postSnapshotPermissionsRequestPayload: PostSnapshotPermissionsRequestPayload, _options?: Configuration): Promise<Snapshot> {
+        const result = this.api.v1SetSnapshotPermissions(snapshotId, postSnapshotPermissionsRequestPayload, _options);
         return result.toPromise();
     }
 
