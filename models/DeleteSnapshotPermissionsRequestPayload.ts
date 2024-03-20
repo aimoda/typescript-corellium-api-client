@@ -15,34 +15,34 @@ import { HttpFile } from '../http/http';
 /**
 * 
 */
-export class InstanceAgentState {
+export class DeleteSnapshotPermissionsRequestPayload {
     /**
-    * 
+    * The email of the user.
     */
-    'hash'?: string | null;
+    'email'?: string | null;
     /**
-    * 
+    * The user ID.
     */
-    'info'?: string | null;
+    'userId'?: string | null;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "hash",
-            "baseName": "hash",
+            "name": "email",
+            "baseName": "email",
             "type": "string",
             "format": ""
         },
         {
-            "name": "info",
-            "baseName": "info",
+            "name": "userId",
+            "baseName": "userId",
             "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return InstanceAgentState.attributeTypeMap;
+        return DeleteSnapshotPermissionsRequestPayload.attributeTypeMap;
     }
 
     public constructor() {

@@ -28,6 +28,7 @@ export * from '../models/CouponOptions';
 export * from '../models/CreateTeam';
 export * from '../models/CreatedBy';
 export * from '../models/Credentials';
+export * from '../models/DeleteSnapshotPermissionsRequestPayload';
 export * from '../models/DomainAuthProviderRequest';
 export * from '../models/DomainAuthProviderResponse';
 export * from '../models/DomainOptions';
@@ -64,6 +65,7 @@ export * from '../models/KernelThread';
 export * from '../models/Logging';
 export * from '../models/Maintenance';
 export * from '../models/MediaPlayBody';
+export * from '../models/MeteredSubscriptionUsage';
 export * from '../models/Model';
 export * from '../models/ModelSoftware';
 export * from '../models/NetdumpFilter';
@@ -73,6 +75,7 @@ export * from '../models/PasswordResetBody';
 export * from '../models/PatchInstanceOptions';
 export * from '../models/PeripheralsData';
 export * from '../models/Plan';
+export * from '../models/PostSnapshotPermissionsRequestPayload';
 export * from '../models/Project';
 export * from '../models/ProjectKey';
 export * from '../models/ProjectQuota';
@@ -85,9 +88,10 @@ export * from '../models/Role';
 export * from '../models/RotateBody';
 export * from '../models/Snapshot';
 export * from '../models/SnapshotCreationOptions';
-export * from '../models/SnapshotInvitationTypes';
 export * from '../models/SnapshotPermissions';
+export * from '../models/SnapshotSharing';
 export * from '../models/SnapshotStatus';
+export * from '../models/SnapshotUser';
 export * from '../models/SubscriberInvite';
 export * from '../models/Team';
 export * from '../models/TeamCreate';
@@ -141,6 +145,7 @@ import { CouponOptions, CouponOptionsTypeEnum     } from '../models/CouponOption
 import { CreateTeam } from '../models/CreateTeam';
 import { CreatedBy } from '../models/CreatedBy';
 import { Credentials } from '../models/Credentials';
+import { DeleteSnapshotPermissionsRequestPayload } from '../models/DeleteSnapshotPermissionsRequestPayload';
 import { DomainAuthProviderRequest } from '../models/DomainAuthProviderRequest';
 import { DomainAuthProviderResponse } from '../models/DomainAuthProviderResponse';
 import { DomainOptions } from '../models/DomainOptions';
@@ -177,6 +182,7 @@ import { KernelThread } from '../models/KernelThread';
 import { Logging } from '../models/Logging';
 import { Maintenance } from '../models/Maintenance';
 import { MediaPlayBody } from '../models/MediaPlayBody';
+import { MeteredSubscriptionUsage } from '../models/MeteredSubscriptionUsage';
 import { Model } from '../models/Model';
 import { ModelSoftware } from '../models/ModelSoftware';
 import { NetdumpFilter } from '../models/NetdumpFilter';
@@ -186,6 +192,7 @@ import { PasswordResetBody } from '../models/PasswordResetBody';
 import { PatchInstanceOptions , PatchInstanceOptionsStateEnum     } from '../models/PatchInstanceOptions';
 import { PeripheralsData } from '../models/PeripheralsData';
 import { Plan } from '../models/Plan';
+import { PostSnapshotPermissionsRequestPayload } from '../models/PostSnapshotPermissionsRequestPayload';
 import { Project } from '../models/Project';
 import { ProjectKey , ProjectKeyKindEnum        } from '../models/ProjectKey';
 import { ProjectQuota } from '../models/ProjectQuota';
@@ -198,9 +205,10 @@ import { Role, RoleRoleEnum     } from '../models/Role';
 import { RotateBody, RotateBodyOrientationEnum   } from '../models/RotateBody';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
-import { SnapshotInvitationTypes } from '../models/SnapshotInvitationTypes';
 import { SnapshotPermissions } from '../models/SnapshotPermissions';
+import { SnapshotSharing } from '../models/SnapshotSharing';
 import { SnapshotStatus } from '../models/SnapshotStatus';
+import { SnapshotUser } from '../models/SnapshotUser';
 import { SubscriberInvite } from '../models/SubscriberInvite';
 import { Team } from '../models/Team';
 import { TeamCreate } from '../models/TeamCreate';
@@ -291,6 +299,7 @@ let typeMap: {[index: string]: any} = {
     "CreateTeam": CreateTeam,
     "CreatedBy": CreatedBy,
     "Credentials": Credentials,
+    "DeleteSnapshotPermissionsRequestPayload": DeleteSnapshotPermissionsRequestPayload,
     "DomainAuthProviderRequest": DomainAuthProviderRequest,
     "DomainAuthProviderResponse": DomainAuthProviderResponse,
     "DomainOptions": DomainOptions,
@@ -325,6 +334,7 @@ let typeMap: {[index: string]: any} = {
     "Logging": Logging,
     "Maintenance": Maintenance,
     "MediaPlayBody": MediaPlayBody,
+    "MeteredSubscriptionUsage": MeteredSubscriptionUsage,
     "Model": Model,
     "ModelSoftware": ModelSoftware,
     "NetdumpFilter": NetdumpFilter,
@@ -334,6 +344,7 @@ let typeMap: {[index: string]: any} = {
     "PatchInstanceOptions": PatchInstanceOptions,
     "PeripheralsData": PeripheralsData,
     "Plan": Plan,
+    "PostSnapshotPermissionsRequestPayload": PostSnapshotPermissionsRequestPayload,
     "Project": Project,
     "ProjectKey": ProjectKey,
     "ProjectQuota": ProjectQuota,
@@ -346,9 +357,10 @@ let typeMap: {[index: string]: any} = {
     "RotateBody": RotateBody,
     "Snapshot": Snapshot,
     "SnapshotCreationOptions": SnapshotCreationOptions,
-    "SnapshotInvitationTypes": SnapshotInvitationTypes,
     "SnapshotPermissions": SnapshotPermissions,
+    "SnapshotSharing": SnapshotSharing,
     "SnapshotStatus": SnapshotStatus,
+    "SnapshotUser": SnapshotUser,
     "SubscriberInvite": SubscriberInvite,
     "Team": Team,
     "TeamCreate": TeamCreate,

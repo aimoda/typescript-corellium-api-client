@@ -10,39 +10,40 @@
  * Do not edit the class manually.
  */
 
+import { SnapshotUser } from '../models/SnapshotUser';
 import { HttpFile } from '../http/http';
 
 /**
 * 
 */
-export class InstanceAgentState {
+export class SnapshotSharing {
     /**
-    * 
+    * The URL of the snapshot.
     */
-    'hash'?: string | null;
+    'url': string;
     /**
-    * 
+    * The users who have access to the snapshot.
     */
-    'info'?: string | null;
+    'users': Array<SnapshotUser>;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "hash",
-            "baseName": "hash",
+            "name": "url",
+            "baseName": "url",
             "type": "string",
             "format": ""
         },
         {
-            "name": "info",
-            "baseName": "info",
-            "type": "string",
+            "name": "users",
+            "baseName": "users",
+            "type": "Array<SnapshotUser>",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return InstanceAgentState.attributeTypeMap;
+        return SnapshotSharing.attributeTypeMap;
     }
 
     public constructor() {

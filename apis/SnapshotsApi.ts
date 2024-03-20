@@ -9,6 +9,8 @@ import {SecurityAuthentication} from '../auth/auth';
 
 
 import { ApiError } from '../models/ApiError';
+import { DeleteSnapshotPermissionsRequestPayload } from '../models/DeleteSnapshotPermissionsRequestPayload';
+import { PostSnapshotPermissionsRequestPayload } from '../models/PostSnapshotPermissionsRequestPayload';
 import { Snapshot } from '../models/Snapshot';
 import { SnapshotCreationOptions } from '../models/SnapshotCreationOptions';
 import { UserError } from '../models/UserError';
@@ -156,6 +158,61 @@ export class SnapshotsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Remove a user from the list of users who have access to the snapshot
+     * @param snapshotId Snapshot ID - uuid
+     * @param deleteSnapshotPermissionsRequestPayload 
+     */
+    public async v1DeleteSnapshotPermissions(snapshotId: string, deleteSnapshotPermissionsRequestPayload: DeleteSnapshotPermissionsRequestPayload, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'snapshotId' is not null or undefined
+        if (snapshotId === null || snapshotId === undefined) {
+            throw new RequiredError("SnapshotsApi", "v1DeleteSnapshotPermissions", "snapshotId");
+        }
+
+
+        // verify required parameter 'deleteSnapshotPermissionsRequestPayload' is not null or undefined
+        if (deleteSnapshotPermissionsRequestPayload === null || deleteSnapshotPermissionsRequestPayload === undefined) {
+            throw new RequiredError("SnapshotsApi", "v1DeleteSnapshotPermissions", "deleteSnapshotPermissionsRequestPayload");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/snapshots/{snapshotId}/permissions'
+            .replace('{' + 'snapshotId' + '}', encodeURIComponent(String(snapshotId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(deleteSnapshotPermissionsRequestPayload, "DeleteSnapshotPermissionsRequestPayload", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["BearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Get Instance Snapshot
      * @param instanceId Instance ID - uuid
      * @param snapshotId Snapshot ID - uuid
@@ -216,6 +273,35 @@ export class SnapshotsApiRequestFactory extends BaseAPIRequestFactory {
         // Path Params
         const localVarPath = '/v1/instances/{instanceId}/snapshots'
             .replace('{' + 'instanceId' + '}', encodeURIComponent(String(instanceId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["BearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Fetch snapshots shared with and shared by the requesting user
+     */
+    public async v1GetSharedSnapshots(_options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // Path Params
+        const localVarPath = '/v1/snapshots';
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -366,6 +452,61 @@ export class SnapshotsApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["BearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Add a user to the list of users who have access to the snapshot
+     * @param snapshotId Snapshot ID - uuid
+     * @param postSnapshotPermissionsRequestPayload 
+     */
+    public async v1SetSnapshotPermissions(snapshotId: string, postSnapshotPermissionsRequestPayload: PostSnapshotPermissionsRequestPayload, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'snapshotId' is not null or undefined
+        if (snapshotId === null || snapshotId === undefined) {
+            throw new RequiredError("SnapshotsApi", "v1SetSnapshotPermissions", "snapshotId");
+        }
+
+
+        // verify required parameter 'postSnapshotPermissionsRequestPayload' is not null or undefined
+        if (postSnapshotPermissionsRequestPayload === null || postSnapshotPermissionsRequestPayload === undefined) {
+            throw new RequiredError("SnapshotsApi", "v1SetSnapshotPermissions", "postSnapshotPermissionsRequestPayload");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/snapshots/{snapshotId}/permissions'
+            .replace('{' + 'snapshotId' + '}', encodeURIComponent(String(snapshotId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(postSnapshotPermissionsRequestPayload, "PostSnapshotPermissionsRequestPayload", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -566,6 +707,49 @@ export class SnapshotsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to v1DeleteSnapshotPermissions
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v1DeleteSnapshotPermissions(response: ResponseContext): Promise<Snapshot > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
+            return body;
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: ApiError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ApiError", ""
+            ) as ApiError;
+            throw new ApiException<ApiError>(response.httpStatusCode, "Forbidden", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: UserError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "UserError", ""
+            ) as UserError;
+            throw new ApiException<UserError>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to v1GetInstanceSnapshot
      * @throws ApiException if the response code was not in [200, 299]
      */
@@ -642,6 +826,49 @@ export class SnapshotsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "Array<Snapshot>", ""
             ) as Array<Snapshot>;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v1GetSharedSnapshots
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v1GetSharedSnapshots(response: ResponseContext): Promise<Snapshot > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
+            return body;
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: ApiError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ApiError", ""
+            ) as ApiError;
+            throw new ApiException<ApiError>(response.httpStatusCode, "Forbidden", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: UserError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "UserError", ""
+            ) as UserError;
+            throw new ApiException<UserError>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
             return body;
         }
 
@@ -767,6 +994,49 @@ export class SnapshotsApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "void", ""
             ) as void;
+            return body;
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to v1SetSnapshotPermissions
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async v1SetSnapshotPermissions(response: ResponseContext): Promise<Snapshot > {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
+            return body;
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: ApiError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ApiError", ""
+            ) as ApiError;
+            throw new ApiException<ApiError>(response.httpStatusCode, "Forbidden", body, response.headers);
+        }
+        if (isCodeInRange("404", response.httpStatusCode)) {
+            const body: UserError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "UserError", ""
+            ) as UserError;
+            throw new ApiException<UserError>(response.httpStatusCode, "Not Found", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: Snapshot = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "Snapshot", ""
+            ) as Snapshot;
             return body;
         }
 

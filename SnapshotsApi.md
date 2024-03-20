@@ -7,11 +7,14 @@ Method | HTTP request | Description
 [**v1CreateSnapshot**](SnapshotsApi.md#v1CreateSnapshot) | **POST** /v1/instances/{instanceId}/snapshots | Create Instance Snapshot
 [**v1DeleteInstanceSnapshot**](SnapshotsApi.md#v1DeleteInstanceSnapshot) | **DELETE** /v1/instances/{instanceId}/snapshots/{snapshotId} | Delete a Snapshot
 [**v1DeleteSnapshot**](SnapshotsApi.md#v1DeleteSnapshot) | **DELETE** /v1/snapshots/{snapshotId} | Delete a Snapshot
+[**v1DeleteSnapshotPermissions**](SnapshotsApi.md#v1DeleteSnapshotPermissions) | **DELETE** /v1/snapshots/{snapshotId}/permissions | Remove a user from the list of users who have access to the snapshot
 [**v1GetInstanceSnapshot**](SnapshotsApi.md#v1GetInstanceSnapshot) | **GET** /v1/instances/{instanceId}/snapshots/{snapshotId} | Get Instance Snapshot
 [**v1GetInstanceSnapshots**](SnapshotsApi.md#v1GetInstanceSnapshots) | **GET** /v1/instances/{instanceId}/snapshots | Get Instance Snapshots
+[**v1GetSharedSnapshots**](SnapshotsApi.md#v1GetSharedSnapshots) | **GET** /v1/snapshots | Fetch snapshots shared with and shared by the requesting user
 [**v1GetSnapshot**](SnapshotsApi.md#v1GetSnapshot) | **GET** /v1/snapshots/{snapshotId} | Get Snapshot
 [**v1RenameInstanceSnapshot**](SnapshotsApi.md#v1RenameInstanceSnapshot) | **PATCH** /v1/instances/{instanceId}/snapshots/{snapshotId} | Rename a Snapshot
 [**v1RestoreInstanceSnapshot**](SnapshotsApi.md#v1RestoreInstanceSnapshot) | **POST** /v1/instances/{instanceId}/snapshots/{snapshotId}/restore | Restore a Snapshot
+[**v1SetSnapshotPermissions**](SnapshotsApi.md#v1SetSnapshotPermissions) | **POST** /v1/snapshots/{snapshotId}/permissions | Add a user to the list of users who have access to the snapshot
 [**v1SnapshotRename**](SnapshotsApi.md#v1SnapshotRename) | **PATCH** /v1/snapshots/{snapshotId} | Rename a Snapshot
 
 
@@ -188,6 +191,67 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **v1DeleteSnapshotPermissions**
+> Snapshot v1DeleteSnapshotPermissions(deleteSnapshotPermissionsRequestPayload)
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .SnapshotsApi(configuration);
+
+let body:.SnapshotsApiV1DeleteSnapshotPermissionsRequest = {
+  // string | Snapshot ID - uuid
+  snapshotId: "snapshotId_example",
+  // DeleteSnapshotPermissionsRequestPayload | 
+  deleteSnapshotPermissionsRequestPayload: {
+    email: "email_example",
+    userId: "userId_example",
+  },
+};
+
+apiInstance.v1DeleteSnapshotPermissions(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deleteSnapshotPermissionsRequestPayload** | **DeleteSnapshotPermissionsRequestPayload**|  |
+ **snapshotId** | [**string**] | Snapshot ID - uuid | defaults to undefined
+
+
+### Return type
+
+**Snapshot**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | application/json |  -  |
+**403** | Forbidden |  -  |
+**404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **v1GetInstanceSnapshot**
 > Snapshot v1GetInstanceSnapshot()
 
@@ -281,6 +345,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 **Array<Snapshot>**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | application/json |  -  |
+**403** | Forbidden |  -  |
+**404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1GetSharedSnapshots**
+> Snapshot v1GetSharedSnapshots()
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .SnapshotsApi(configuration);
+
+let body:any = {};
+
+apiInstance.v1GetSharedSnapshots(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**Snapshot**
 
 ### Authorization
 
@@ -472,6 +585,67 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Accepted |  -  |
+**403** | Forbidden |  -  |
+**404** | Not Found |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **v1SetSnapshotPermissions**
+> Snapshot v1SetSnapshotPermissions(postSnapshotPermissionsRequestPayload)
+
+
+### Example
+
+
+```typescript
+import {  } from '';
+import * as fs from 'fs';
+
+const configuration = .createConfiguration();
+const apiInstance = new .SnapshotsApi(configuration);
+
+let body:.SnapshotsApiV1SetSnapshotPermissionsRequest = {
+  // string | Snapshot ID - uuid
+  snapshotId: "snapshotId_example",
+  // PostSnapshotPermissionsRequestPayload | 
+  postSnapshotPermissionsRequestPayload: {
+    email: "email_example",
+    userId: "userId_example",
+  },
+};
+
+apiInstance.v1SetSnapshotPermissions(body).then((data:any) => {
+  console.log('API called successfully. Returned data: ' + data);
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **postSnapshotPermissionsRequestPayload** | **PostSnapshotPermissionsRequestPayload**|  |
+ **snapshotId** | [**string**] | Snapshot ID - uuid | defaults to undefined
+
+
+### Return type
+
+**Snapshot**
+
+### Authorization
+
+[BearerAuth](README.md#BearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | application/json |  -  |
 **403** | Forbidden |  -  |
 **404** | Not Found |  -  |
 

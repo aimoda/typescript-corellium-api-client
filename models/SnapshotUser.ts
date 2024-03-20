@@ -13,51 +13,33 @@
 import { HttpFile } from '../http/http';
 
 /**
-* /_**
+* 
 */
-export class User {
+export class SnapshotUser {
     /**
-    * User ID
-    */
-    'id': string;
-    /**
-    * User Label
-    */
-    'label': string;
-    /**
-    * User Name
-    */
-    'name': string;
-    /**
-    * User Email
+    * The email of the user.
     */
     'email': string;
     /**
-    * the flag that specifies whether user is Administrator or not
+    * The date when the invite was sent.
     */
-    'administrator'?: boolean | null;
+    'inviteSentAt': number;
+    /**
+    * The timestamp.
+    */
+    'timestamp': number;
+    /**
+    * The user ID.
+    */
+    'userId': string;
+    /**
+    * The label.
+    */
+    'label': string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "id",
-            "baseName": "id",
-            "type": "string",
-            "format": "uuid"
-        },
-        {
-            "name": "label",
-            "baseName": "label",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "name",
-            "baseName": "name",
-            "type": "string",
-            "format": ""
-        },
         {
             "name": "email",
             "baseName": "email",
@@ -65,14 +47,32 @@ export class User {
             "format": ""
         },
         {
-            "name": "administrator",
-            "baseName": "administrator",
-            "type": "boolean",
+            "name": "inviteSentAt",
+            "baseName": "inviteSentAt",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "timestamp",
+            "baseName": "timestamp",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "userId",
+            "baseName": "userId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "label",
+            "baseName": "label",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return User.attributeTypeMap;
+        return SnapshotUser.attributeTypeMap;
     }
 
     public constructor() {

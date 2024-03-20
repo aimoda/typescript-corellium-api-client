@@ -76,6 +76,7 @@ models/CouponOptions.ts
 models/CreateTeam.ts
 models/CreatedBy.ts
 models/Credentials.ts
+models/DeleteSnapshotPermissionsRequestPayload.ts
 models/DomainAuthProviderRequest.ts
 models/DomainAuthProviderResponse.ts
 models/DomainOptions.ts
@@ -112,6 +113,7 @@ models/KernelThread.ts
 models/Logging.ts
 models/Maintenance.ts
 models/MediaPlayBody.ts
+models/MeteredSubscriptionUsage.ts
 models/Model.ts
 models/ModelSoftware.ts
 models/NetdumpFilter.ts
@@ -122,6 +124,7 @@ models/PasswordResetBody.ts
 models/PatchInstanceOptions.ts
 models/PeripheralsData.ts
 models/Plan.ts
+models/PostSnapshotPermissionsRequestPayload.ts
 models/Project.ts
 models/ProjectKey.ts
 models/ProjectQuota.ts
@@ -134,9 +137,10 @@ models/Role.ts
 models/RotateBody.ts
 models/Snapshot.ts
 models/SnapshotCreationOptions.ts
-models/SnapshotInvitationTypes.ts
 models/SnapshotPermissions.ts
+models/SnapshotSharing.ts
 models/SnapshotStatus.ts
+models/SnapshotUser.ts
 models/SubscriberInvite.ts
 models/Team.ts
 models/TeamCreate.ts
