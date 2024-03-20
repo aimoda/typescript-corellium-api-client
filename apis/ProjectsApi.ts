@@ -286,6 +286,7 @@ export class ProjectsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * A Project VPN allows connection _into_ virtual devices in the project (e.g., connecting a researcher\'s computer as a VPN client to a virtual device within the project). If a Project VPN has been defined, this will return the configuration.
      * Get Project VPN Configuration
      * @param projectId Project ID - uuid
      * @param format VPN Config format
@@ -759,6 +760,13 @@ export class ProjectsApiResponseProcessor {
                 "string", ""
             ) as string;
             return body;
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: ApiError = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "ApiError", ""
+            ) as ApiError;
+            throw new ApiException<ApiError>(response.httpStatusCode, "User Error", body, response.headers);
         }
         if (isCodeInRange("403", response.httpStatusCode)) {
             const body: ApiError = ObjectSerializer.deserialize(

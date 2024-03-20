@@ -1,4 +1,4 @@
-## @aimoda/corellium-api@6.0.0-20323
+## @aimoda/corellium-api@6.1.0-20784
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -21,7 +21,7 @@ Navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @aimoda/corellium-api@6.0.0-20323 --save
+npm install @aimoda/corellium-api@6.1.0-20784 --save
 ```
 
 _unPublished (not recommended):_

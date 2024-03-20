@@ -1,6 +1,6 @@
 {
   "name": "@aimoda/corellium-api",
-  "version": "6.0.0-20323",
+  "version": "6.1.0-20784",
   "description": "OpenAPI client for @aimoda/corellium-api",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
